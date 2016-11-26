@@ -39,6 +39,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.RobotLog;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -60,8 +61,7 @@ public class BlackTigersTeleOp extends OpMode
     /* Declare OpMode members. */
     private ElapsedTime runtime = new ElapsedTime();
 
-     private DcMotor leftMotor = null;
-     private DcMotor rightMotor = null;
+    BlackTigersHardware robot = new BlackTigersHardware();
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -69,22 +69,7 @@ public class BlackTigersTeleOp extends OpMode
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
-
-        /* eg: Initialize the hardware variables. Note that the strings used here as parameters
-         * to 'get' must correspond to the names assigned during the robot configuration
-         * step (using the FTC Robot Controller app on the phone).
-         */
-         leftMotor  = hardwareMap.dcMotor.get("left_drive");
-         rightMotor = hardwareMap.dcMotor.get("right_drive");
-
-        // eg: Set the drive motor directions:
-        // Reverse the motor that runs backwards when connected directly to the battery
-        // leftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-          rightMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        leftMotor.setDirection(DcMotor.Direction.FORWARD);
-        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        // telemetry.addData("Status", "Initialized");
+        robot.init(hardwareMap);
     }
 
     /*
@@ -112,14 +97,11 @@ public class BlackTigersTeleOp extends OpMode
         // eg: Run wheels in tank mode (note: The joystick goes negative when pushed forwards)
         double leftPower = -gamepad1.left_stick_y;
         double rightPower = -gamepad1.right_stick_y;
-        if(leftPower != 0 || rightPower != 0) {
-            DbgLog.msg("Left Stick: "+(-leftPower)+"; Right Stick: "+(-rightPower));
-        }
         leftPower = RobotUtilities.normalizePower(leftPower);
         rightPower = RobotUtilities.normalizePower(rightPower);
-        leftMotor.setPower(leftPower);
-        rightMotor.setPower(rightPower);
-
+        DbgLog.msg("Left Stick: "+leftPower+"; Right Stick: "+rightPower);
+        robot.leftMotor.setPower(leftPower);
+        robot.rightMotor.setPower(rightPower);
     }
 
     /*
