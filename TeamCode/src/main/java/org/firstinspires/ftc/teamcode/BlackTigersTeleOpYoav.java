@@ -33,13 +33,9 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.ftccommon.DbgLog;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.RobotLog;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -55,14 +51,15 @@ import com.qualcomm.robotcore.util.RobotLog;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Black Tiger Teleop", group="BlackTigers")  // @Autonomous(...) is the other common choice
-public class BlackTigersTeleOp extends OpMode
+@TeleOp(name="Black Tiger Teleop Yoav", group="BlackTigers")  // @Autonomous(...) is the other common choice
+public class BlackTigersTeleOpYoav extends OpMode
 {
     /* Declare OpMode members. */
     private ElapsedTime runtime = new ElapsedTime();
 
-    BlackTigersHardware robot = new BlackTigersHardware();
-
+    BlackTigersHardwareYoav robot = new BlackTigersHardwareYoav();
+    boolean isReloading = false;
+    boolean isCollecting = false;
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -103,7 +100,30 @@ public class BlackTigersTeleOp extends OpMode
         robot.leftMotor.setPower(leftPower);
         robot.rightMotor.setPower(rightPower);
 
+        if(gamepad2.a) {
+           robot.shootingMotor.setPower(1);
+        } else {
+            robot.shootingMotor.setPower(0);
+        }
 
+        if(gamepad2.right_bumper) {
+            if(isReloading) {
+                robot.reloadingMotor.setPower(0);
+            } else {
+                robot.reloadingMotor.setPower(1);
+            }
+            isReloading = !isReloading;
+        }
+
+
+        if(gamepad2.left_bumper) {
+            if(isCollecting) {
+                robot.collectionMotor.setPower(0);
+            } else {
+                robot.collectionMotor.setPower(1);
+            }
+            isCollecting = !isCollecting;
+        }
     }
 
     /*
