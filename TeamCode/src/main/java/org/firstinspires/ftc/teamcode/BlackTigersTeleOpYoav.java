@@ -37,61 +37,36 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/**
- * This file contains an example of an iterative (Non-Linear) "OpMode".
- * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
- * The names of OpModes appear on the menu of the FTC Driver Station.
- * When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
- *
- * This particular OpMode just executes a basic Tank Drive Teleop for a PushBot
- * It includes all the skeletal structure that all iterative OpModes contain.
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
 
-@TeleOp(name="Black Tiger Teleop Yoav", group="BlackTigers")  // @Autonomous(...) is the other common choice
+@TeleOp(name="Black Tiger Teleop Yoav", group="BlackTigers")
 public class BlackTigersTeleOpYoav extends OpMode
 {
-    /* Declare OpMode members. */
+
     private ElapsedTime runtime = new ElapsedTime();
 
     BlackTigersHardwareYoav robot = new BlackTigersHardwareYoav();
     boolean isReloading = false;
     boolean isCollecting = false;
-    /*
-     * Code to run ONCE when the driver hits INIT
-     */
+
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
         robot.init(hardwareMap);
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
     @Override
     public void init_loop() {
     }
 
-    /*
-     * Code to run ONCE when the driver hits PLAY
-     */
     @Override
     public void start() {
         runtime.reset();
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
-     */
     @Override
     public void loop() {
         telemetry.addData("Status", "Running: " + runtime.toString());
 
-        // eg: Run wheels in tank mode (note: The joystick goes negative when pushed forwards)
         double leftPower = -gamepad1.left_stick_y;
         double rightPower = -gamepad1.right_stick_y;
         leftPower = RobotUtilities.normalizePower(leftPower);
@@ -126,9 +101,7 @@ public class BlackTigersTeleOpYoav extends OpMode
         }
     }
 
-    /*
-     * Code to run ONCE after the driver hits STOP
-     */
+
     @Override
     public void stop() {
     }
