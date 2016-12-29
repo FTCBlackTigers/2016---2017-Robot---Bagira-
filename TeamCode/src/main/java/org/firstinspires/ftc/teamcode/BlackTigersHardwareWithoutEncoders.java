@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-public class BlackTigersHardwareYoav
+public class BlackTigersHardwareWithoutEncoders
 {
     /* Public OpMode members. */
     public DcMotor  leftMotor   = null;
@@ -22,7 +22,7 @@ public class BlackTigersHardwareYoav
     private ElapsedTime period  = new ElapsedTime();
 
 
-    public BlackTigersHardwareYoav(){
+    public BlackTigersHardwareWithoutEncoders(){
 
     }
 
@@ -42,7 +42,7 @@ public class BlackTigersHardwareYoav
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         collectionMotor.setDirection(DcMotor.Direction.REVERSE);
         reloadingMotor.setDirection(DcMotor.Direction.REVERSE);
-        shootingMotor.setDirection(DcMotor.Direction.REVERSE);
+        shootingMotor.setDirection(DcMotor.Direction.FORWARD);
 
 
         leftMotor.setPower(0);
@@ -54,9 +54,9 @@ public class BlackTigersHardwareYoav
 
 
 
-        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        shootingMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        shootingMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         reloadingMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         collectionMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }

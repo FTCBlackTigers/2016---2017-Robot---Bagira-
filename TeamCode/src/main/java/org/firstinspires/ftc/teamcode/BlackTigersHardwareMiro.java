@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class BlackTigersHardwareMiro
@@ -12,7 +12,7 @@ public class BlackTigersHardwareMiro
     public DcMotor  collectionMotor = null;
     public DcMotor  reloadingMotor = null;
     public DcMotor  shootingMotor = null;
-
+    public Servo beaconsServo =null;
 
 
 
@@ -34,9 +34,10 @@ public class BlackTigersHardwareMiro
         collectionMotor = hwMap.dcMotor.get("collection_motor");
         reloadingMotor = hwMap.dcMotor.get("reloading_motor");
         shootingMotor = hwMap.dcMotor.get("shooting_motor");
+        beaconsServo = hwMap.servo.get("beacons_servo");
 
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        rightMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
         collectionMotor.setDirection(DcMotor.Direction.REVERSE);
         reloadingMotor.setDirection(DcMotor.Direction.REVERSE);
         shootingMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -47,7 +48,7 @@ public class BlackTigersHardwareMiro
         collectionMotor.setPower(0);
         reloadingMotor.setPower(0);
         shootingMotor.setPower(0);
-
+        beaconsServo.setPosition(0);
 
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

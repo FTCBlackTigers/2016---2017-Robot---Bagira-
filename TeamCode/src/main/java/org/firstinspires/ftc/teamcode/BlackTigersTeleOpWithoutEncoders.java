@@ -39,12 +39,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name="Black Tiger Teleop Yoav", group="BlackTigers")
-public class BlackTigersTeleOpYoav extends OpMode
+public class BlackTigersTeleOpWithoutEncoders extends OpMode
 {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    BlackTigersHardwareYoav robot = new BlackTigersHardwareYoav();
+    BlackTigersHardwareWithoutEncoders robot = new BlackTigersHardwareWithoutEncoders();
     boolean isReloading = false;
     boolean isCollecting = false;
 

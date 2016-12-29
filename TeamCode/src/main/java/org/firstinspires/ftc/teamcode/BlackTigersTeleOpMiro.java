@@ -74,31 +74,47 @@ public class BlackTigersTeleOpMiro extends OpMode
         robot.leftMotor.setPower(leftPower);
         robot.rightMotor.setPower(rightPower);
 
-        if(gamepad2.a) {
-           robot.shootingMotor.setPower(1);
-        } else {
-            robot.shootingMotor.setPower(0);
+        if(gamepad2.left_bumper && gamepad2.a) {
+           robot.collectionMotor.setPower(0);
+        } else if(gamepad2.a && !gamepad2.left_bumper) {
+            robot.collectionMotor.setPower(1);
+        } else if(!gamepad2.a && gamepad2.left_bumper) {
+            robot.collectionMotor.setPower(-1);
+        } else{
+            robot.collectionMotor.setPower(0);
         }
+
 
         if(gamepad2.right_bumper) {
             if(isReloading) {
                 robot.reloadingMotor.setPower(0);
             } else {
-                robot.reloadingMotor.setPower(1);
+                robot.reloadingMotor.setPower(0.75);
             }
             isReloading = !isReloading;
         }
 
 
-        if(gamepad2.left_bumper) {
-            if(isCollecting) {
-                robot.collectionMotor.setPower(0);
-            } else {
-                robot.collectionMotor.setPower(1);
-            }
-            isCollecting = !isCollecting;
+
+
+
+
+        if(gamepad2.dpad_right){
+            robot.beaconsServo.setPosition(0.34);
+        }else if(gamepad2.dpad_left){
+            robot.beaconsServo.setPosition(0.66);
+
         }
+
+
+
+
+
+
     }
+
+
+
 
 
     @Override
