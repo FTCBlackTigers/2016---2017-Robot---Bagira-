@@ -33,68 +33,40 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.ftccommon.DbgLog;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.RobotLog;
 
-/**
- * This file contains an example of an iterative (Non-Linear) "OpMode".
- * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
- * The names of OpModes appear on the menu of the FTC Driver Station.
- * When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
- *
- * This particular OpMode just executes a basic Tank Drive Teleop for a PushBot
- * It includes all the skeletal structure that all iterative OpModes contain.
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
 
 @TeleOp(name="Black Tiger Teleop", group="BlackTigers")  // @Autonomous(...) is the other common choice
 public class BlackTigersTeleOp extends OpMode
 {
-    /* Declare OpMode members. */
     private ElapsedTime runtime = new ElapsedTime();
 
     BlackTigersHardware robot = new BlackTigersHardware();
+    boolean isReloading = false;
+    boolean isCollecting = false;
+    boolean isShootingFinishedSpeeding = false;
 
-    /*
-     * Code to run ONCE when the driver hits INIT
-     */
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
         robot.init(hardwareMap);
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
     @Override
     public void init_loop() {
     }
 
-    /*
-     * Code to run ONCE when the driver hits PLAY
-     */
     @Override
     public void start() {
         runtime.reset();
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
-     */
     @Override
     public void loop() {
         telemetry.addData("Status", "Running: " + runtime.toString());
 
-        // eg: Run wheels in tank mode (note: The joystick goes negative when pushed forwards)
         double leftPower = -gamepad1.left_stick_y;
         double rightPower = -gamepad1.right_stick_y;
         leftPower = RobotUtilities.normalizePower(leftPower);
@@ -102,13 +74,47 @@ public class BlackTigersTeleOp extends OpMode
         DbgLog.msg("Left Stick: "+leftPower+"; Right Stick: "+rightPower);
         robot.leftMotor.setPower(leftPower);
         robot.rightMotor.setPower(rightPower);
+        if(gamepad2.right_trigger > 0){
+                if (isShootingFinishedSpeeding) {
+                    robot.shootingMotor.setPower(-0.1);
 
+                } else {
+                    robot.shootingMotor.setPower(-0.7);
+                }
+        }else{
+            robot.shootingMotor.setPower(0);
+            isShootingFinishedSpeeding = false;
+        }
+
+        if(gamepad2.left_bumper && gamepad2.a) {
+           robot.collectionMotor.setPower(0);
+            robot.reloadingMotor.setPower(0);
+        } else if(gamepad2.a && !gamepad2.left_bumper) {
+            robot.collectionMotor.setPower(1);
+            robot.reloadingMotor.setPower(1);
+        } else if(!gamepad2.a && gamepad2.left_bumper) {
+            robot.collectionMotor.setPower(-1);
+            robot.reloadingMotor.setPower(-1);
+        } else{
+            robot.collectionMotor.setPower(0);
+            robot.reloadingMotor.setPower(0);
+        }
+
+        //Beacons
+        if (gamepad2.dpad_right) {
+            robot.beaconsServo.setPosition(0.34);
+        } else if (gamepad2.dpad_left) {
+            robot.beaconsServo.setPosition(0.66);
+
+        }
+
+        telemetry.addData("Path2", "Running at %7d :%7d",
+                robot.leftMotor.getCurrentPosition(),
+                robot.rightMotor.getCurrentPosition());
+        telemetry.update();
 
     }
 
-    /*
-     * Code to run ONCE after the driver hits STOP
-     */
     @Override
     public void stop() {
     }

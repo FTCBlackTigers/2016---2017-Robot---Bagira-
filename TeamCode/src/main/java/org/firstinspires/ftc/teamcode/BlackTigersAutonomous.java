@@ -63,7 +63,6 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 @Autonomous(name="Autonomous", group="BlackTigers")
-
 public class BlackTigersAutonomous extends LinearOpMode {
 
     /* Declare OpMode members. */
