@@ -71,33 +71,36 @@ public class BlackTigersAutonomousTest extends LinearVisionOpMode {
         telemetry.addData("Path0", "Starting at %7d :%7d",
                 robot.leftMotor.getCurrentPosition(),
                 robot.rightMotor.getCurrentPosition());
+        telemetry.addData("gyro", robot.gyro.getHeading());
         telemetry.update();
 
 
         waitForStart();
         encoderDrive(0.95, -45, -45, 3); // Power:1 Distance:55 CM Time:3
         gyroRotate(45);
-        encoderDrive(0.95, -100, -100,5);
+        encoderDrive(0.95, -118, -118,5);
         gyroRotate(45);
         if(beacon.getAnalysis().isLeftBlue()){
-            robot.beaconsServo.setPosition(0.34);
+            robot.beaconsServo.setPosition(0.0);
         }else if(beacon.getAnalysis().isRightBlue()){
-            robot.beaconsServo.setPosition(0.66);
+            robot.beaconsServo.setPosition(0.4);
         }// beacon analysis and reaction
-        encoderDrive(0.95, -60, -60, 3); // Power:1 Distance:20 CM Time:2
+        encoderDrive(0.95, -55, -55, 3); // Power:1 Distance:20 CM Time:2
+        robot.beaconsServo.setPosition(0);
 
         encoderDrive(0.95, 60, 60, 3); // Power:1 Distance:20 CM Time:2
         gyroRotate(90);
         encoderDrive(0.95, 120 , 120 , 7);
         gyroRotate(-90);
+        encoderDrive(0.95 , -20, -20, 3);
         if(beacon.getAnalysis().isLeftBlue()){
-            robot.beaconsServo.setPosition(0.34);
+            robot.beaconsServo.setPosition(0.0);
         }else if(beacon.getAnalysis().isRightBlue()){
-            robot.beaconsServo.setPosition(0.66);
+            robot.beaconsServo.setPosition(0.4);
         }// beacon analysis and reaction
-        encoderDrive(0.95, -60, -60, 3); // Power:1 Distance:20 CM Time:2
+        encoderDrive(0.95, -40, -40, 3); // Power:1 Distance:20 CM Time:2
 
-
+        
 //        encoderDrive(0.75, 40, -40, 4); // Power:1 Rotation Distance:6.6 Angle: 47.6 Time: 4
 //        encoderDrive(1, -86, -86, 7); // Power:1 Distance:100 CM Time:15
 //        encoderDrive(0.75,27, -27, 5); // Power:1 Distance:55 CM Time:3
@@ -192,6 +195,13 @@ public class BlackTigersAutonomousTest extends LinearVisionOpMode {
             }
 
             // Stop all motion;
+            int i = 0;
+            while(opModeIsActive() && i < 4 && runtime.milliseconds() % 10 == 0) {
+                robot.leftMotor.setPower(Range.clip(robot.leftMotor.getPower()/2, 0, 1));
+                robot.rightMotor.setPower(Range.clip(robot.rightMotor.getPower()/2, 0, 1));
+                i++;
+            }
+
             robot.leftMotor.setPower(0);
             robot.rightMotor.setPower(0);
 
