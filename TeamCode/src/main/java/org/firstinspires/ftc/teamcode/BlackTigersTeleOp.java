@@ -49,8 +49,9 @@ public class BlackTigersTeleOp extends OpMode
     boolean isReloading = false;
     boolean isCollecting = false;
     boolean isShootingFinishedSpeeding = false;
-    boolean isShootingstartedSlowing = true;
-
+    boolean isShootingFinishedSlowing = true;
+    final double ReloadingSpeed = 0.75;
+    final double CollectionSpeed = 1.0;
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
@@ -70,6 +71,8 @@ public class BlackTigersTeleOp extends OpMode
     public void loop() {
         telemetry.addData("Status", "Running: " + runtime.toString());
 
+
+
         double leftPower = -gamepad1.left_stick_y;
         double rightPower = -gamepad1.right_stick_y;
         leftPower = RobotUtilities.normalizePower(leftPower);
@@ -77,53 +80,59 @@ public class BlackTigersTeleOp extends OpMode
         DbgLog.msg("Left Stick: "+leftPower+"; Right Stick: "+rightPower);
         robot.leftMotor.setPower(leftPower);
         robot.rightMotor.setPower(rightPower);
+        /*if (!isCollecting) {
+            robot.collectionMotor.setPower(0);
+        } else {
+            robot.collectionMotor.setPower(CollectionSpeed);
+        }*/
         if(gamepad2.right_trigger > 0){
-            if (!isShootingFinishedSpeeding) {
                 if(runtime.milliseconds() % 40 < 5) {
-                    robot.shootingMotor.setPower(robot.shootingMotor.getPower() - 0.04);
+                    robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() + 0.02, 0, 0.90));
                 }
-                if(robot.shootingMotor.getPower() <= -0.7) {
-                    isShootingFinishedSpeeding = true;
-                }
-            } else {
-                robot.shootingMotor.setPower(-0.7);
-            }
-            isShootingstartedSlowing = false;
         }else{
-            if (!isShootingstartedSlowing) {
-                if(runtime.milliseconds() % 40 < 5) {
-                    robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() + 0.01, -1, 0));
-                }
-                if(robot.shootingMotor.getPower() >= 0) {
-                    isShootingstartedSlowing = true;
-                }
-            } else {
+            if(runtime.milliseconds() % 40 < 2) {
+                robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() / 1.1, 0, 0.90));
+            }
+            if(robot.shootingMotor.getPower() < 0.1) {
                 robot.shootingMotor.setPower(0);
             }
-            robot.shootingMotor.setPower(0);
-            isShootingFinishedSpeeding = false;
         }
 //       shooting motor need to be added
-        if(gamepad2.left_bumper && gamepad2.a && gamepad2.right_bumper && gamepad2.x && gamepad2.b) {
+        if(gamepad2.left_bumper && gamepad2.a && gamepad2.right_bumper && gamepad2.x && gamepad2.b ) {
            robot.collectionMotor.setPower(0);
             robot.reloadingMotor.setPower(0);
-        } else if(gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
-            robot.collectionMotor.setPower(1);
-            robot.reloadingMotor.setPower(1);
-        } else if(!gamepad2.a && gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
-            robot.collectionMotor.setPower(-1);
-            robot.reloadingMotor.setPower(-1);
-        } else if(!gamepad2.a && !gamepad2.left_bumper && gamepad2.right_bumper && !gamepad2.x && !gamepad2.b){
-            robot.collectionMotor.setPower(1);
-            robot.reloadingMotor.setPower(0);
-        }else if(!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && gamepad2.x && !gamepad2.b){
+            isCollecting = false;
+        } else if(gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b ) {
+
+            robot.collectionMotor.setPower(CollectionSpeed);
+            robot.reloadingMotor.setPower(ReloadingSpeed);
+            isCollecting = true;
+        } else if(!gamepad2.a && gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b ) {
+            robot.collectionMotor.setPower(-CollectionSpeed);
+            robot.reloadingMotor.setPower(-ReloadingSpeed);
+        } else if(!gamepad2.a && !gamepad2.left_bumper && gamepad2.right_bumper && !gamepad2.x && !gamepad2.b ) {
+                if (isCollecting) {
+                    if(gamepad2.right_bumper)
+                    {
+                        robot.collectionMotor.setPower(0);
+                        isCollecting = true;
+                    }
+                } else if(!isCollecting)
+                {    if(gamepad2.right_bumper)
+                    {
+                    robot.collectionMotor.setPower(CollectionSpeed);
+                    isCollecting = false;
+                    }
+                }
+        }else if(!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && gamepad2.x && !gamepad2.b ){
             robot.collectionMotor.setPower(0);
-            robot.reloadingMotor.setPower(1);
-        }else if(!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && gamepad2.b){
-            robot.reloadingMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.reloadingMotor.setPower(0.75);
+            robot.reloadingMotor.setPower(ReloadingSpeed);
+            isCollecting = false;
+        }else if(!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && gamepad2.b ){
+
+            robot.reloadingMotor.setPower(-ReloadingSpeed/2);
             robot.collectionMotor.setPower(0);
-            robot.reloadingMotor.setTargetPosition(39274);
+            isCollecting = true;
         }else{
             robot.collectionMotor.setPower(0);
             robot.reloadingMotor.setPower(0);
@@ -131,12 +140,12 @@ public class BlackTigersTeleOp extends OpMode
 
         //Beacons
         if (gamepad2.dpad_right) {
-            robot.beaconsServo.setPosition(0.34);
+            robot.beaconsServo.setPosition(0);
         } else if (gamepad2.dpad_left) {
-            robot.beaconsServo.setPosition(0.66);
+            robot.beaconsServo.setPosition(0.4);
 
         }
-
+        telemetry.addData("shooting speed", "%f", robot.shootingMotor.getPower());
         telemetry.addData("Path2", "Running at %7d :%7d",
                 robot.leftMotor.getCurrentPosition(),
                 robot.rightMotor.getCurrentPosition());

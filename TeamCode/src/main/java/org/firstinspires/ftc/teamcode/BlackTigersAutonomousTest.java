@@ -196,7 +196,7 @@ public class BlackTigersAutonomousTest extends LinearVisionOpMode {
 
             // Stop all motion;
             int i = 0;
-            while(opModeIsActive() && i < 4 && runtime.milliseconds() % 10 == 0) {
+            while(opModeIsActive() && i < 4 && runtime.milliseconds() % 20 == 0) {
                 robot.leftMotor.setPower(Range.clip(robot.leftMotor.getPower()/2, 0, 1));
                 robot.rightMotor.setPower(Range.clip(robot.rightMotor.getPower()/2, 0, 1));
                 i++;

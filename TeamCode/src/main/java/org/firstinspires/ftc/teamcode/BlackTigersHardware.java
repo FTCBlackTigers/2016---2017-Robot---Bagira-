@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -43,15 +44,21 @@ public class BlackTigersHardware
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         collectionMotor.setDirection(DcMotor.Direction.REVERSE);
         reloadingMotor.setDirection(DcMotor.Direction.REVERSE);
-        shootingMotor.setDirection(DcMotor.Direction.REVERSE);
+        shootingMotor.setDirection(DcMotor.Direction.FORWARD);
 
+        shootingMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        collectionMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        reloadingMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         collectionMotor.setPower(0);
         reloadingMotor.setPower(0);
         shootingMotor.setPower(0);
-        beaconsServo.setPosition(0.20);
+        beaconsServo.resetDeviceConfigurationForOpMode();
+        beaconsServo.setPosition(0);
 
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
