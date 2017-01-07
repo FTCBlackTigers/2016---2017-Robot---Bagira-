@@ -17,7 +17,7 @@ import org.opencv.core.Size;
  * Created by user on 07/01/2017.
  */
 
-public class BlackTigersAutonomousAgressive extends VisionOpMode {
+public class BlackTigersAutonomousAggresiveRed extends VisionOpMode {
     @Autonomous(name = "Black Tigers Aggro Blue Auto ", group = "BlackTigers Auto")
     public class BlackTigersAutonomousTest extends LinearVisionOpMode {
 
@@ -81,54 +81,7 @@ public class BlackTigersAutonomousAgressive extends VisionOpMode {
                 robot.collectionMotor.setPower(1);
                 robot.reloadingMotor.setPower(0.9);
             }
-            encoderDrive(0.95, -60, -60, 3); // Power:1 Distance:55 CM Time:3
-
-//            gyroRotate(45);
-//            encoderDrive(0.95, -118, -118,5);
-//            gyroRotate(45);
-//            if(beacon.getAnalysis().isLeftBlue()){
-//                robot.beaconsServo.setPosition(0.0);
-//            }else if(beacon.getAnalysis().isRightBlue()){
-//                robot.beaconsServo.setPosition(0.4);
-//            }// beacon analysis and reaction
-//            encoderDrive(0.95, -55, -55, 3); // Power:1 Distance:20 CM Time:2
-//            robot.beaconsServo.setPosition(0);
-//
-//            encoderDrive(0.95, 60, 60, 3); // Power:1 Distance:20 CM Time:2
-//            gyroRotate(90);
-//            encoderDrive(0.95, 120 , 120 , 7);
-//            gyroRotate(-90);
-//            encoderDrive(0.95 , -20, -20, 3);
-//            if(beacon.getAnalysis().isLeftBlue()){
-//                robot.beaconsServo.setPosition(0.0);
-//            }else if(beacon.getAnalysis().isRightBlue()){
-//                robot.beaconsServo.setPosition(0.4);
-//            }// beacon analysis and reaction
-//            encoderDrive(0.95, -40, -40, 3); // Power:1 Distance:20 CM Time:2
-//
-
-//        encoderDrive(0.75, 40, -40, 4); // Power:1 Rotation Distance:6.6 Angle: 47.6 Time: 4
-//        encoderDrive(1, -86, -86, 7); // Power:1 Distance:100 CM Time:15
-//        encoderDrive(0.75,27, -27, 5); // Power:1 Distance:55 CM Time:3
-//        encoderDrive(1, 10, 10, 7); // Power:1 Distance:100 CM Time:15
-//        encoderDrive(1, -47, -47, 2); // Power:1 Distance:20 CM Time:2
-//        Thread.sleep(1000);\
-//        encoderDrive(1,47,47,2);//after beacon press return to last position
-//        encoderDrive(0.75, 34, -34, 3); // Power:1 Distance:10.6 CM Time:3
-//        encoderDrive(1, -139, -139, 7); // Power:1 Distance:120 CM Time:7
-//        encoderDrive(0.75, -40, 40, 3); // Power:1 Distance:10.6 CM Time:3
-//        encoderDrive(1, -20 , -20 , 4);
-//
-//        robot.reloadingMotor.setPower(1);
-//        robot.shootingMotor.setPower(1);
-//
-//        if(beacon.getAnalysis().isLeftBlue()){
-//            robot.beaconsServo.setPosition(0.34);
-//        }else if(beacon.getAnalysis().isRightBlue()){
-//            robot.beaconsServo.setPosition(0.66);
-//        }// beacon analysis and reaction
-//        encoderDrive(1, -42, -42, 2); // Power:1 Distance:20 CM Time:2
-
+            encoderDrive(0.95, 60, 60, 3); // Power:1 Distance:55 CM Time:3
 
             while (opModeIsActive()) {
 

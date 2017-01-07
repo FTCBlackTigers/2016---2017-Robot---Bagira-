@@ -40,9 +40,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
-@TeleOp(name="Black Tiger Teleop", group="BlackTigers")  // @Autonomous(...) is the other common choice
-public class BlackTigersTeleOp extends OpMode
-{
+@TeleOp(name = "Black Tiger Teleop", group = "BlackTigers")
+// @Autonomous(...) is the other common choice
+public class BlackTigersTeleOp extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     BlackTigersHardware robot = new BlackTigersHardware();
@@ -52,6 +52,7 @@ public class BlackTigersTeleOp extends OpMode
     boolean isShootingFinishedSlowing = true;
     final double ReloadingSpeed = 0.75;
     final double CollectionSpeed = 1.0;
+
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
@@ -72,68 +73,50 @@ public class BlackTigersTeleOp extends OpMode
         telemetry.addData("Status", "Running: " + runtime.toString());
 
 
-
         double leftPower = -gamepad1.left_stick_y;
         double rightPower = -gamepad1.right_stick_y;
         leftPower = RobotUtilities.normalizePower(leftPower);
         rightPower = RobotUtilities.normalizePower(rightPower);
-        DbgLog.msg("Left Stick: "+leftPower+"; Right Stick: "+rightPower);
+        if(gamepad1.right_bumper){
+            leftPower=leftPower/2;
+            rightPower=rightPower/2;
+        }
+        DbgLog.msg("Left Stick: " + leftPower + "; Right Stick: " + rightPower);
         robot.leftMotor.setPower(leftPower);
         robot.rightMotor.setPower(rightPower);
-        /*if (!isCollecting) {
-            robot.collectionMotor.setPower(0);
+        if (gamepad2.right_trigger > 0) {
+            if (runtime.milliseconds() % 40 < 5) {
+                robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() + 0.02, 0, 0.90));
+            }
         } else {
-            robot.collectionMotor.setPower(CollectionSpeed);
-        }*/
-        if(gamepad2.right_trigger > 0){
-                if(runtime.milliseconds() % 40 < 5) {
-                    robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() + 0.02, 0, 0.90));
-                }
-        }else{
-            if(runtime.milliseconds() % 40 < 2) {
+            if (runtime.milliseconds() % 40 < 2) {
                 robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() / 1.1, 0, 0.90));
             }
-            if(robot.shootingMotor.getPower() < 0.1) {
+            if (robot.shootingMotor.getPower() < 0.1) {
                 robot.shootingMotor.setPower(0);
             }
         }
 //       shooting motor need to be added
-        if(gamepad2.left_bumper && gamepad2.a && gamepad2.right_bumper && gamepad2.x && gamepad2.b ) {
-           robot.collectionMotor.setPower(0);
+        if (gamepad2.left_bumper && gamepad2.a && gamepad2.right_bumper && gamepad2.x && gamepad2.b) {
             robot.reloadingMotor.setPower(0);
             isCollecting = false;
-        } else if(gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b ) {
-
+        } else if (gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
             robot.collectionMotor.setPower(CollectionSpeed);
             robot.reloadingMotor.setPower(ReloadingSpeed);
-            isCollecting = true;
-        } else if(!gamepad2.a && gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b ) {
+        } else if (!gamepad2.a && gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
             robot.collectionMotor.setPower(-CollectionSpeed);
             robot.reloadingMotor.setPower(-ReloadingSpeed);
-        } else if(!gamepad2.a && !gamepad2.left_bumper && gamepad2.right_bumper && !gamepad2.x && !gamepad2.b ) {
-                if (isCollecting) {
-                    if(gamepad2.right_bumper)
-                    {
-                        robot.collectionMotor.setPower(0);
-                        isCollecting = true;
-                    }
-                } else if(!isCollecting)
-                {    if(gamepad2.right_bumper)
-                    {
-                    robot.collectionMotor.setPower(CollectionSpeed);
-                    isCollecting = false;
-                    }
-                }
-        }else if(!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && gamepad2.x && !gamepad2.b ){
+        } else if (!gamepad2.a && !gamepad2.left_bumper && gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
+            robot.collectionMotor.setPower(CollectionSpeed);
+            robot.reloadingMotor.setPower(0);
+        } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && gamepad2.x && !gamepad2.b) {
             robot.collectionMotor.setPower(0);
             robot.reloadingMotor.setPower(ReloadingSpeed);
             isCollecting = false;
-        }else if(!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && gamepad2.b ){
-
-            robot.reloadingMotor.setPower(-ReloadingSpeed/2);
+        } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && gamepad2.b) {
+            robot.reloadingMotor.setPower(-ReloadingSpeed / 2);
             robot.collectionMotor.setPower(0);
-            isCollecting = true;
-        }else{
+        } else {
             robot.collectionMotor.setPower(0);
             robot.reloadingMotor.setPower(0);
         }
