@@ -50,8 +50,8 @@ public class BlackTigersTeleOp extends OpMode {
     boolean isCollecting = false;
     boolean isShootingFinishedSpeeding = false;
     boolean isShootingFinishedSlowing = true;
-    final double ReloadingSpeed = 0.75;
-    final double CollectionSpeed = 1.0;
+    final double ReloadingSpeed = -0.95;
+    final double CollectionSpeed = 1;
 
     @Override
     public void init() {
@@ -86,11 +86,11 @@ public class BlackTigersTeleOp extends OpMode {
         robot.rightMotor.setPower(rightPower);
         if (gamepad2.right_trigger > 0) {
             if (runtime.milliseconds() % 40 < 5) {
-                robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() + 0.02, 0, 0.90));
+                robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() + 0.02, 0, 0.95));
             }
         } else {
             if (runtime.milliseconds() % 40 < 2) {
-                robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() / 1.1, 0, 0.90));
+                robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() / 1.1, 0, 0.95));
             }
             if (robot.shootingMotor.getPower() < 0.1) {
                 robot.shootingMotor.setPower(0);
@@ -123,9 +123,9 @@ public class BlackTigersTeleOp extends OpMode {
 
         //Beacons
         if (gamepad2.dpad_right) {
-            robot.beaconsServo.setPosition(0);
+            robot.beaconsServo.setPosition(0.30);
         } else if (gamepad2.dpad_left) {
-            robot.beaconsServo.setPosition(0.4);
+            robot.beaconsServo.setPosition(0.0);
 
         }
         telemetry.addData("shooting speed", "%f", robot.shootingMotor.getPower());

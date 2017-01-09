@@ -17,9 +17,9 @@ import org.opencv.core.Size;
  * Created by user on 07/01/2017.
  */
 
-public class BlackTigersAutonomousAgressive extends VisionOpMode {
+
     @Autonomous(name = "Black Tigers Aggro Blue Auto ", group = "BlackTigers Auto")
-    public class BlackTigersAutonomousTest extends LinearVisionOpMode {
+    public class BlackTigersAutonomousAgressive extends LinearVisionOpMode  {
 
         BlackTigersHardware robot = new BlackTigersHardware();
         private ElapsedTime runtime = new ElapsedTime();
@@ -245,5 +245,5 @@ public class BlackTigersAutonomousAgressive extends VisionOpMode {
             robot.rightMotor.setPower(0);
         }
 
-    }
+
 }
