@@ -73,31 +73,31 @@ public class BlackTigersAutonomousFarRed extends LinearVisionOpMode {
 
 
         waitForStart();
-        encoderDrive(0.95, -30, -30, 3); // Power:1 Distance:55 CM Time:3
-        gyroRotate(90);
-        encoderDrive(0.95, -178, -178, 6);
-        gyroRotate(90);
-        encoderDrive(0.95, -60, -60, 3);
-        gyroRotate(90);
+        encoderDrive(0.95, -40, -40, 3); // Power:1 Distance:55 CM Time:3
+        gyroRotate(270);
+        encoderDrive(0.95, -120, -120, 6);
+        gyroRotate(270);
+        encoderDrive(0.95, -100, -100, 3);
+        gyroRotate(-270);
         if (beacon.getAnalysis().isLeftBlue()) {
             robot.beaconsServo.setPosition(0.0);
         } else if (beacon.getAnalysis().isRightBlue()) {
             robot.beaconsServo.setPosition(0.4);
         }// beacon analysis and reaction
-        encoderDrive(0.95, -55, -55, 3); // Power:1 Distance:20 CM Time:2
-        robot.beaconsServo.setPosition(0);
-
-        encoderDrive(0.95, 60, 60, 3); // Power:1 Distance:20 CM Time:2
-        gyroRotate(90);
-        encoderDrive(0.95, 120, 120, 7);
-        gyroRotate(-90);
-        encoderDrive(0.95, -20, -20, 3);
-        if (beacon.getAnalysis().isLeftBlue()) {
-            robot.beaconsServo.setPosition(0.0);
-        } else if (beacon.getAnalysis().isRightBlue()) {
-            robot.beaconsServo.setPosition(0.4);
-        }// beacon analysis and reaction
-        encoderDrive(0.95, -40, -40, 3); // Power:1 Distance:20 CM Time:2
+        encoderDrive(0.95, -100, -100, 3); // Power:1 Distance:20 CM Time:2
+//        robot.beaconsServo.setPosition(0);
+//
+//        encoderDrive(0.95, 60, 60, 3); // Power:1 Distance:20 CM Time:2
+//        gyroRotate(270);
+//        encoderDrive(0.95, 120, 120, 7);
+//        gyroRotate(-270);
+//        encoderDrive(0.95, -20, -20, 3);
+//        if (beacon.getAnalysis().isLeftBlue()) {
+//            robot.beaconsServo.setPosition(0.0);
+//        } else if (beacon.getAnalysis().isRightBlue()) {
+//            robot.beaconsServo.setPosition(0.4);
+//        }// beacon analysis and reaction
+//        encoderDrive(0.95, -40, -40, 3); // Power:1 Distance:20 CM Time:2
 
 
 //        encoderDrive(0.75, 40, -40, 4); // Power:1 Rotation Distance:6.6 Angle: 47.6 Time: 4

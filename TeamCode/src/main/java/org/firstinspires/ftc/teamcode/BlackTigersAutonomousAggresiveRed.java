@@ -83,7 +83,7 @@ import org.opencv.core.Size;
                 robot.leftMotor.setPower(0);
                 robot.rightMotor.setPower(0);
             }
-            encoderDrive(0.95, 100, 100, 3); // Power:1 Distance:55 CM Time:3
+            encoderDrive(0.95, 200, 200, 3); // Power:1 Distance:55 CM Time:3
             gyroRotate(45);
             encoderDrive(0.95, -18, -18,1);
 
