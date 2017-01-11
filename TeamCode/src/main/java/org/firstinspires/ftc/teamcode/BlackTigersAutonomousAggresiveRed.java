@@ -80,8 +80,12 @@ import org.opencv.core.Size;
                 robot.shootingMotor.setPower(0.9);
                 robot.collectionMotor.setPower(1);
                 robot.reloadingMotor.setPower(0.9);
+                robot.leftMotor.setPower(0);
+                robot.rightMotor.setPower(0);
             }
-            encoderDrive(0.95, 60, 60, 3); // Power:1 Distance:55 CM Time:3
+            encoderDrive(0.95, 100, 100, 3); // Power:1 Distance:55 CM Time:3
+            gyroRotate(45);
+            encoderDrive(0.95, -18, -18,1);
 
             while (opModeIsActive()) {
 

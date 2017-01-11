@@ -16,8 +16,8 @@ import org.opencv.core.Size;
 /**
  * Created by user on 29/12/2016.
  */
-@Autonomous(name = "Black Tigers Blue Shoot&Beacon Auto", group = "BlackTigers Auto")
-public class BlackTigersAutonomousBlueShootingBeacon extends LinearVisionOpMode {
+@Autonomous(name = "Black Tigers Red Shoot&Beacon Auto", group = "BlackTigers Auto")
+public class BlackTigersAutonomousRedShootingBeacon extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -100,22 +100,23 @@ public class BlackTigersAutonomousBlueShootingBeacon extends LinearVisionOpMode 
         robot.shootingMotor.setPower(0);
 
         encoderDrive(0.95, 45, 45, 3);
-        gyroRotate(200);
-        encoderDrive(0.95, -134.5, -134.5, 6);
-        gyroRotate (-25);
+        gyroRotate(142);
+        encoderDrive(0.95, -133, -133, 6);
+        gyroRotate (23);
         encoderDrive(0.95,-90,-90,3);
-        gyroRotate(87);
+        gyroRotate(-87);
         encoderDrive(0.95, -22, -22, 2);
 
-       if(beacon.getAnalysis().isRightBlue()){
+
+       if(beacon.getAnalysis().isRightRed()){
             robot.beaconsServo.setPosition(0.0);
-        }else if(beacon.getAnalysis().isLeftBlue()){
+        }else if(beacon.getAnalysis().isLeftRed()){
             robot.beaconsServo.setPosition(0.28);}
         encoderDrive(0.95, -55, -55, 3); // Power:1 Distance:20 CM Time:2
         robot.beaconsServo.setPosition(0);
 
         encoderDrive(1,40,40,1);
-        gyroRotate(-45);
+        gyroRotate(45);
         encoderDrive(1,115,115,3);
       //  gyroRotate(25);
         //encoderDrive(1,25,25,2);
