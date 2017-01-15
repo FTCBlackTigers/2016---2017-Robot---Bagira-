@@ -90,7 +90,7 @@ public class BlackTigersTeleOp extends OpMode {
             }
         } else {
             if (runtime.milliseconds() % 40 < 2) {
-                robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() / 1.1, 0, 0.95));
+                robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() / 1.15, 0, 0.95));
             }
             if (robot.shootingMotor.getPower() < 0.1) {
                 robot.shootingMotor.setPower(0);
@@ -123,15 +123,16 @@ public class BlackTigersTeleOp extends OpMode {
 
         //Beacons
         if (gamepad2.dpad_right) {
-            robot.beaconsServo.setPosition(0.30);
-        } else if (gamepad2.dpad_left) {
             robot.beaconsServo.setPosition(0.0);
+        } else if (gamepad2.dpad_left) {
+            robot.beaconsServo.setPosition(0.33);
 
         }
         telemetry.addData("shooting speed", "%f", robot.shootingMotor.getPower());
         telemetry.addData("Path2", "Running at %7d :%7d",
                 robot.leftMotor.getCurrentPosition(),
                 robot.rightMotor.getCurrentPosition());
+        telemetry.addData("gyro", robot.gyro.getHeading());
         telemetry.update();
 
     }

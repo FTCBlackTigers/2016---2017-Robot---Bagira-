@@ -33,8 +33,7 @@ public class BlackTigersHardware
 
 
         leftMotor   = hwMap.dcMotor.get("left_drive");
-        rightMotor  = hwMap.dcMotor.get("right_drive");
-        collectionMotor = hwMap.dcMotor.get("collection_motor");
+        rightMotor  = hwMap.dcMotor.get("right_drive");        collectionMotor = hwMap.dcMotor.get("collection_motor");
         reloadingMotor = hwMap.dcMotor.get("reloading_motor");
         shootingMotor = hwMap.dcMotor.get("shooting_motor");
         beaconsServo = hwMap.servo.get("beacons_servo");
@@ -58,6 +57,7 @@ public class BlackTigersHardware
         reloadingMotor.setPower(0);
         shootingMotor.setPower(0);
         beaconsServo.resetDeviceConfigurationForOpMode();
+        beaconsServo.setDirection(Servo.Direction.REVERSE);
         beaconsServo.setPosition(0);
 
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

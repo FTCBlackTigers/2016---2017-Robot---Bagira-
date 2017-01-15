@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -16,6 +17,7 @@ import org.opencv.core.Size;
 /**
  * Created by user on 29/12/2016.
  */
+@Disabled
 @Autonomous(name = "Black Tigers Blue Shoot&Beacon Auto", group = "BlackTigers Auto")
 public class BlackTigersAutonomousBlueShootingBeacon extends LinearVisionOpMode {
 

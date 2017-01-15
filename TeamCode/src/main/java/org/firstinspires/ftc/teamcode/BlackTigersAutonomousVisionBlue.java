@@ -19,7 +19,7 @@ import org.opencv.core.Size;
  * Created by user on 29/12/2016.
  */
 @Autonomous(name = "Black Tigers Vision Blue Auto", group = "BlackTigers Auto")
-public class BlackTigersAutonomousTest extends LinearVisionOpMode {
+public class BlackTigersAutonomousVisionBlue extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -76,6 +76,7 @@ public class BlackTigersAutonomousTest extends LinearVisionOpMode {
 
 
         waitForStart();
+
         encoderDrive(0.95, -45, -45, 3); // Power:1 Distance:55 CM Time:3
         gyroRotate(45);
         encoderDrive(0.95, -118, -118,5);
@@ -83,7 +84,7 @@ public class BlackTigersAutonomousTest extends LinearVisionOpMode {
         if(beacon.getAnalysis().isLeftBlue()){
             robot.beaconsServo.setPosition(0.0);
         }else if(beacon.getAnalysis().isRightBlue()){
-            robot.beaconsServo.setPosition(0.4);
+            robot.beaconsServo.setPosition(0.33);
         }// beacon analysis and reaction
         encoderDrive(0.95, -55, -55, 3); // Power:1 Distance:20 CM Time:2
         robot.beaconsServo.setPosition(0);
@@ -96,7 +97,7 @@ public class BlackTigersAutonomousTest extends LinearVisionOpMode {
         if(beacon.getAnalysis().isLeftBlue()){
             robot.beaconsServo.setPosition(0.0);
         }else if(beacon.getAnalysis().isRightBlue()){
-            robot.beaconsServo.setPosition(0.4);
+            robot.beaconsServo.setPosition(0.33);
         }// beacon analysis and reaction
         encoderDrive(0.95, -40, -40, 3); // Power:1 Distance:20 CM Time:2
 

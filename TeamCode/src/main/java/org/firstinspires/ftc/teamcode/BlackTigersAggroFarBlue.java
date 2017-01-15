@@ -14,10 +14,11 @@ import org.opencv.core.Size;
 
 
 /**
- * Created by user on 29/12/2016.
+ * Created by user on 07/01/2017.
  */
-@Autonomous(name = "Black Tigers Vision Red Auto", group = "BlackTigers Auto")
-public class BlackTigersAutonomousTestRed extends LinearVisionOpMode {
+
+@Autonomous(name = "Black Tigers Aggro Blue Auto Far", group = "BlackTigers Auto")
+public class BlackTigersAggroFarBlue extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -58,8 +59,8 @@ public class BlackTigersAutonomousTestRed extends LinearVisionOpMode {
         enableExtension(Extensions.ROTATION);
         enableExtension(Extensions.CAMERA_CONTROL);
         beacon.setAnalysisMethod(Beacon.AnalysisMethod.COMPLEX);
-        beacon.setColorToleranceRed(0);
-        beacon.setColorToleranceBlue(0);
+        beacon.setColorToleranceRed(0); //change
+        beacon.setColorToleranceBlue(0); //change
         rotation.setIsUsingSecondaryCamera(true);
         rotation.setActivityOrientationFixed(ScreenOrientation.PORTRAIT);
         cameraControl.setColorTemperature(CameraControlExtension.ColorTemperature.AUTO);
@@ -74,29 +75,87 @@ public class BlackTigersAutonomousTestRed extends LinearVisionOpMode {
 
 
         waitForStart();
-        encoderDrive(0.95, -45, -45, 3); // Power:1 Distance:55 CM Time:3
+        //sleep(10000);
+        encoderDrive(0.95, 40, 40, 3); // Power:1 Distance:55 CM Time:3
         gyroRotate(45);
-        encoderDrive(0.95, -118, -118,5);
-        gyroRotate(45);
-        if(beacon.getAnalysis().isLeftRed()){
-            robot.beaconsServo.setPosition(0.0);
-        }else if(beacon.getAnalysis().isRightRed()){
-            robot.beaconsServo.setPosition(0.4);
-        }// beacon analysis and reaction
-        encoderDrive(0.95, -55, -55, 3); // Power:1 Distance:20 CM Time:2
-        robot.beaconsServo.setPosition(0);
+        encoderDrive(0.95, 35, 35, 6);
+        if(runtime.seconds()<5)
+        {
+            robot.shootingMotor.setPower(0.9);
+            robot.collectionMotor.setPower(0);
+            robot.reloadingMotor.setPower(0);
+            sleep(1500);
+        }
+        if(runtime.seconds()<7)
+        {
+            robot.shootingMotor.setPower(0.9);
+            robot.collectionMotor.setPower(0);
+            robot.reloadingMotor.setPower(-0.9);
+            sleep(500);
+        }
+        if(runtime.seconds()<7.5)
+        {
+            robot.shootingMotor.setPower(0.9);
+            robot.collectionMotor.setPower(0);
+            robot.reloadingMotor.setPower(0);
+            sleep(500);
+        }
+        if(runtime.seconds()<8)
+        {
+            robot.shootingMotor.setPower(0.9);
+            robot.collectionMotor.setPower(1);
+            robot.reloadingMotor.setPower(-0.9);
+            sleep(2000);
+        }
+        robot.shootingMotor.setPower(0);
+        robot.collectionMotor.setPower(0);
+        robot.reloadingMotor.setPower(0);
+        encoderDrive(0.95, 120, 120, 6);
+//        gyroRotate(90);
+//        encoderDrive(0.95, -100, -100, 3);
+//        gyroRotate(90);
+//        if (beacon.getAnalysis().isLeftBlue()) {
+//            robot.beaconsServo.setPosition(0.0);
+//        } else if (beacon.getAnalysis().isRightBlue()) {
+//            robot.beaconsServo.setPosition(0.4);
+//        }// beacon analysis and reaction
+//        encoderDrive(0.95, -100, -100, 3); // Power:1 Distance:20 CM Time:2
+//        robot.beaconsServo.setPosition(0);
 
-        encoderDrive(0.95, 60, 60, 3); // Power:1 Distance:20 CM Time:2
-        gyroRotate(90);
-        encoderDrive(0.95, 120 , 120 , 7);
-        gyroRotate(-90);
-        encoderDrive(0.95 , -20, -20, 3);
-        if(beacon.getAnalysis().isLeftRed()){
-            robot.beaconsServo.setPosition(0.0);
-        }else if(beacon.getAnalysis().isRightRed()){
-            robot.beaconsServo.setPosition(0.4);
-        }// beacon analysis and reaction
-        encoderDrive(0.95, -40, -40, 3); // Power:1 Distance:20 CM Time:2
+//        encoderDrive(0.95, 60, 60, 3); // Power:1 Distance:20 CM Time:2
+//        gyroRotate(90);
+//        encoderDrive(0.95, 120, 120, 7);
+//        gyroRotate(-90);
+//        encoderDrive(0.95, -20, -20, 3);
+//        if (beacon.getAnalysis().isLeftBlue()) {
+//            robot.beaconsServo.setPosition(0.0);
+//        } else if (beacon.getAnalysis().isRightBlue()) {
+//            robot.beaconsServo.setPosition(0.4);
+//        }// beacon analysis and reaction
+//        encoderDrive(0.95, -40, -40, 3); // Power:1 Distance:20 CM Time:2
+
+
+//        encoderDrive(0.75, 40, -40, 4); // Power:1 Rotation Distance:6.6 Angle: 47.6 Time: 4
+//        encoderDrive(1, -86, -86, 7); // Power:1 Distance:100 CM Time:15
+//        encoderDrive(0.75,27, -27, 5); // Power:1 Distance:55 CM Time:3
+//        encoderDrive(1, 10, 10, 7); // Power:1 Distance:100 CM Time:15
+//        encoderDrive(1, -47, -47, 2); // Power:1 Distance:20 CM Time:2
+//        Thread.sleep(1000);\
+//        encoderDrive(1,47,47,2);//after beacon press return to last position
+//        encoderDrive(0.75, 34, -34, 3); // Power:1 Distance:10.6 CM Time:3
+//        encoderDrive(1, -139, -139, 7); // Power:1 Distance:120 CM Time:7
+//        encoderDrive(0.75, -40, 40, 3); // Power:1 Distance:10.6 CM Time:3
+//        encoderDrive(1, -20 , -20 , 4);
+//
+//        robot.reloadingMotor.setPower(1);
+//        robot.shootingMotor.setPower(1);
+//
+//        if(beacon.getAnalysis().isLeftBlue()){
+//            robot.beaconsServo.setPosition(0.34);
+//        }else if(beacon.getAnalysis().isRightBlue()){
+//            robot.beaconsServo.setPosition(0.66);
+//        }// beacon analysis and reaction
+//        encoderDrive(1, -42, -42, 2); // Power:1 Distance:20 CM Time:2
 
 
         while (opModeIsActive()) {
@@ -105,10 +164,16 @@ public class BlackTigersAutonomousTestRed extends LinearVisionOpMode {
             telemetry.addData("Beacon Confidence", beacon.getAnalysis().getConfidenceString());
             telemetry.addData("Status", "Resetting Encoders");
             telemetry.update();
+//
+//            if (beacon.getAnalysis().isLeftBlue()) {
+//                robot.beaconsServo.setPosition(0.40);
+//            } else if (beacon.getAnalysis().isRightBlue()) {
+//                robot.beaconsServo.setPosition(0.66);
+//            }// beacon analysis and reaction
             waitOneFullHardwareCycle();
-    }
+        }
 
-}
+    }
 
     public void encoderDrive(double speed,
                              double leftCM, double rightCM,
@@ -141,13 +206,13 @@ public class BlackTigersAutonomousTestRed extends LinearVisionOpMode {
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())){
+                    (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())) {
                 int direction = robot.gyro.getHeading() - startDirection;
-                if(direction > 0) {
-                    if(direction <= 180) {
-                        robot.leftMotor.setPower(Range.clip(Math.abs(speed) - getErrorFraction(direction), 0,1));
+                if (direction > 0) {
+                    if (direction <= 180) {
+                        robot.leftMotor.setPower(Range.clip(Math.abs(speed) - getErrorFraction(direction), 0, 1));
                     } else {
-                        direction = Math.abs(direction -360);
+                        direction = Math.abs(direction - 360);
                         robot.rightMotor.setPower(Range.clip(Math.abs(speed) - getErrorFraction(direction), 0, 1));
                     }
                 } else {
@@ -165,9 +230,9 @@ public class BlackTigersAutonomousTestRed extends LinearVisionOpMode {
 
             // Stop all motion;
             int i = 0;
-            while(opModeIsActive() && i < 4 && runtime.milliseconds() % 20 == 0) {
-                robot.leftMotor.setPower(Range.clip(robot.leftMotor.getPower()/2, 0, 1));
-                robot.rightMotor.setPower(Range.clip(robot.rightMotor.getPower()/2, 0, 1));
+            while (opModeIsActive() && i < 4 && runtime.milliseconds() % 20 == 0) {
+                robot.leftMotor.setPower(Range.clip(robot.leftMotor.getPower() / 2, 0, 1));
+                robot.rightMotor.setPower(Range.clip(robot.rightMotor.getPower() / 2, 0, 1));
                 i++;
             }
 
@@ -188,11 +253,11 @@ public class BlackTigersAutonomousTestRed extends LinearVisionOpMode {
     }
 
     public void gyroRotate(int degrees) {
-        degrees=-degrees;
+        degrees = -degrees;
         int startPosition = robot.gyro.getHeading();
-        int targetPosition = startPosition+degrees;
-        while(opModeIsActive() && Math.abs(Math.abs(degrees)-Math.abs(robot.gyro.getHeading()-startPosition)) > 3) {
-            if(degrees < 0) {
+        int targetPosition = startPosition + degrees;
+        while (opModeIsActive() && Math.abs(Math.abs(degrees) - Math.abs(robot.gyro.getHeading() - startPosition)) > 3) {
+            if (degrees < 0) {
                 robot.leftMotor.setPower(ROTATE_SPEED);
                 robot.rightMotor.setPower(-ROTATE_SPEED);
             } else {
@@ -207,5 +272,5 @@ public class BlackTigersAutonomousTestRed extends LinearVisionOpMode {
         robot.leftMotor.setPower(0);
         robot.rightMotor.setPower(0);
     }
-
 }
+
