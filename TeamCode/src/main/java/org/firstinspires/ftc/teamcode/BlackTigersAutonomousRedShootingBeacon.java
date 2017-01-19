@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.lasarobotics.vision.android.Cameras;
 import org.lasarobotics.vision.ftc.resq.Beacon;
@@ -67,7 +66,7 @@ public class BlackTigersAutonomousRedShootingBeacon extends LinearVisionOpMode {
 
         waitForStart();
         robot.beaconsServo.setPosition(0.3);
-        RobotUtilities.encoderDrive(1,10,10,1.5,this,robot,telemetry);
+        RobotUtilities.moveForward(1,10,1.5,this,robot,telemetry);
 
        if (runtime.seconds()<1.3){
         robot.reloadingMotor.setPower(1);
@@ -77,7 +76,7 @@ public class BlackTigersAutonomousRedShootingBeacon extends LinearVisionOpMode {
         robot.reloadingMotor.setPower(-1);
         robot.collectionMotor.setPower(1);
         robot.shootingMotor.setPower(1);}
-        sleep(0750);
+        sleep(750);
         robot.reloadingMotor.setPower(0);
         robot.collectionMotor.setPower(1);
         robot.shootingMotor.setPower(1);
@@ -91,27 +90,27 @@ public class BlackTigersAutonomousRedShootingBeacon extends LinearVisionOpMode {
         robot.collectionMotor.setPower(0);
         robot.shootingMotor.setPower(0);
 
-        RobotUtilities.encoderDrive(0.95, 45, 45, 3,this,robot,telemetry);
+        RobotUtilities.moveForward(0.95, 45, 3,this,robot,telemetry);
         RobotUtilities.gyroRotate(142,robot,telemetry, this);
-        RobotUtilities.encoderDrive(0.95, -133, -133, 6,this,robot,telemetry);
+        RobotUtilities.moveForward(0.95, -133, 6,this,robot,telemetry);
         RobotUtilities.gyroRotate (23,robot,telemetry,this);
-        RobotUtilities.encoderDrive(0.95,-90,-90,3,this,robot,telemetry);
+        RobotUtilities.moveForward(0.95,-90,3,this,robot,telemetry);
         RobotUtilities.gyroRotate(-87,robot,telemetry,this);
-        RobotUtilities.encoderDrive(0.95, -22, -22, 2,this,robot,telemetry);
+        RobotUtilities.moveForward(0.95, -22, 2,this,robot,telemetry);
 
 
        if(beacon.getAnalysis().isRightRed()){
             robot.beaconsServo.setPosition(0.0);
         }else if(beacon.getAnalysis().isLeftRed()){
             robot.beaconsServo.setPosition(0.28);}
-        RobotUtilities.encoderDrive(0.95, -55, -55, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
+        RobotUtilities.moveForward(0.95, -55, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
         robot.beaconsServo.setPosition(0);
 
-        RobotUtilities.encoderDrive(1,40,40,1,this,robot,telemetry);
+        RobotUtilities.moveForward(1,40,1,this,robot,telemetry);
         RobotUtilities.gyroRotate(45,robot,telemetry,this);
-        RobotUtilities.encoderDrive(1,115,115,3,this,robot,telemetry);
+        RobotUtilities.moveForward(1,115,3,this,robot,telemetry);
       //  gyroRotate(25);
-        //encoderDrive(1,25,25,2);
+        //moveForward(1,25,25,2);
 
 
 

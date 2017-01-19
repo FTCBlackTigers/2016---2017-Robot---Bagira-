@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.lasarobotics.vision.android.Cameras;
 import org.lasarobotics.vision.ftc.resq.Beacon;
@@ -63,28 +61,28 @@ public class BlackTigersAutonomousVisionRed extends LinearVisionOpMode {
 
 
         waitForStart();
-        RobotUtilities.encoderDrive(0.95, -48, -48, 3,this,robot,telemetry); // Power:1 Distance:55 CM Time:3
+        RobotUtilities.moveForward(0.95, -48, 3,this,robot,telemetry); // Power:1 Distance:55 CM Time:3
         RobotUtilities.gyroRotate(-40, robot, telemetry, this);
-        RobotUtilities.encoderDrive(0.95, -116, -115,5,this, robot, telemetry);
+        RobotUtilities.moveForward(0.95, -115, 5,this, robot, telemetry);
         RobotUtilities.gyroRotate(-45, robot, telemetry, this);
        if(beacon.getAnalysis().isLeftRed()){
             robot.beaconsServo.setPosition(0.0);
         }else if(beacon.getAnalysis().isRightRed()){
             robot.beaconsServo.setPosition(0.33);
         }// beacon analysis and reaction
-        RobotUtilities.encoderDrive(0.95, -55, -55, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
+        RobotUtilities.moveForward(0.95, -55, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
        robot.beaconsServo.setPosition(0);
-       RobotUtilities.encoderDrive(0.95, 36, 36, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
+       RobotUtilities.moveForward(0.95, 36, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
        RobotUtilities.gyroRotate(85,robot,telemetry,this);
-       RobotUtilities.encoderDrive(0.95, -122 , -122 , 7,this,robot,telemetry);
+       RobotUtilities.moveForward(0.95, -122, 7,this,robot,telemetry);
        RobotUtilities.gyroRotate(-85,robot,telemetry,this);
-       RobotUtilities.encoderDrive(0.95 , -20, -20, 3,this,robot,telemetry);
+       RobotUtilities.moveForward(0.95 , -20, 3,this,robot,telemetry);
         if(beacon.getAnalysis().isLeftRed()){
             robot.beaconsServo.setPosition(0.0);
         }else if(beacon.getAnalysis().isRightRed()){
             robot.beaconsServo.setPosition(0.33);
         }// beacon analysis and reaction
-        RobotUtilities.encoderDrive(0.95, -40, -40, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
+        RobotUtilities.moveForward(0.95, -40,3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
 
 
         while (opModeIsActive()) {

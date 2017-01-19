@@ -27,9 +27,9 @@ public class RobotUtilities {
         return Math.pow(power,3);
     }
 
-    public static void encoderDrive(double speed,
-                             double leftCM, double rightCM,
-                             double timeoutS, LinearVisionOpMode opMode, BlackTigersHardware robot, Telemetry telemetry) {
+    public static void moveForward(double speed,
+                                   double cmToDrive,
+                                   double timeoutS, LinearVisionOpMode opMode, BlackTigersHardware robot, Telemetry telemetry) {
 
         int newLeftTarget;
         int newRightTarget;
@@ -39,8 +39,9 @@ public class RobotUtilities {
             robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftCM * COUNTS_PER_CM);
-            newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightCM * COUNTS_PER_CM);
+            int ticksToDrive = (int) (cmToDrive * COUNTS_PER_CM);
+            newLeftTarget = robot.leftMotor.getCurrentPosition() + ticksToDrive;
+            newRightTarget = robot.rightMotor.getCurrentPosition() + ticksToDrive;
             robot.leftMotor.setTargetPosition(newLeftTarget);
             robot.rightMotor.setTargetPosition(newRightTarget);
 
@@ -60,16 +61,20 @@ public class RobotUtilities {
                     (runtime.seconds() < timeoutS) &&
                     (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())){
                 int direction = robot.gyro.getHeading() - startDirection;
+                double percentage = (double) (ticksToDrive - (newLeftTarget - robot.leftMotor.getCurrentPosition())) / (double) ticksToDrive;
+                if(percentage > 1) {
+                    break;
+                }
                 if(direction > 0) {
                     if(direction <= 180) {
-                        robot.leftMotor.setPower(Range.clip(Math.abs(speed) - getErrorFraction(direction), 0,1));
+                        robot.leftMotor.setPower(Range.clip(getPowerToDrive(Math.abs(speed), percentage) - getErrorFraction(direction), 0,1));
                     } else {
                         direction = Math.abs(direction -360);
-                        robot.rightMotor.setPower(Range.clip(Math.abs(speed) - getErrorFraction(direction), 0, 1));
+                        robot.rightMotor.setPower(Range.clip(getPowerToDrive(Math.abs(speed), percentage) - getErrorFraction(direction), 0, 1));
                     }
                 } else {
-                    robot.leftMotor.setPower(Math.abs(speed));
-                    robot.rightMotor.setPower(Math.abs(speed));
+                    robot.leftMotor.setPower(getPowerToDrive(Math.abs(speed), percentage));
+                    robot.rightMotor.setPower(getPowerToDrive(Math.abs(speed), percentage));
                 }
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
@@ -78,14 +83,6 @@ public class RobotUtilities {
                         robot.rightMotor.getCurrentPosition());
                 telemetry.addData("Power", "left: %f, right: %f", robot.leftMotor.getPower(), robot.rightMotor.getPower());
                 telemetry.update();
-            }
-
-            // Stop all motion;
-            int i = 0;
-            while(opMode.opModeIsActive() && i < 4 && runtime.milliseconds() % 20 == 0) {
-                robot.leftMotor.setPower(Range.clip(robot.leftMotor.getPower()/2, 0, 1));
-                robot.rightMotor.setPower(Range.clip(robot.rightMotor.getPower()/2, 0, 1));
-                i++;
             }
 
             robot.leftMotor.setPower(0);
@@ -98,6 +95,14 @@ public class RobotUtilities {
             //  sleep(250);   // optional pause after each move
         }
 
+    }
+
+    public static double getPowerToDrive(double maxSpeed, double percentageOfDistance) {
+        if(percentageOfDistance < 0.75) {
+            return maxSpeed;
+        } else {
+            return (1-percentageOfDistance) * maxSpeed;
+        }
     }
 
     public static double getErrorFraction(int direction) {
