@@ -21,7 +21,7 @@ import org.opencv.core.Size;
 public class BlackTigersAutonomousVisionBlue extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
-    private ElapsedTime runtime = new ElapsedTime();
+
 
 
     @Override
@@ -76,7 +76,7 @@ public class BlackTigersAutonomousVisionBlue extends LinearVisionOpMode {
         } else if (beacon.getAnalysis().isRightBlue()) {
             robot.beaconsServo.setPosition(0.33);
         }// beacon analysis and reaction
-        RobotUtilities.moveForward(0.95, -55,3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
+        RobotUtilities.moveForward(0.95, -47,3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
         robot.beaconsServo.setPosition(0);
 
         RobotUtilities.moveForward(0.95, 60, 3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2

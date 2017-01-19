@@ -16,7 +16,7 @@ public class RobotUtilities {
 
     static final double COUNTS_PER_MOTOR_REV = 560;
     static final double DRIVE_GEAR_REDUCTION = 3.8;
-    static final double ROTATE_SPEED = 0.5;
+    static final double ROTATE_SPEED = 0.25;
     static final double WHEEL_DIAMETER_CM = 10.16;
     static final double CORRECTION_FACOTR = 0.15;
     static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
