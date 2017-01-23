@@ -37,26 +37,29 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 
-@TeleOp(name = "Black Tiger Teleop", group = "BlackTigers")
+@TeleOp(name = "Black Tiger TeleopFowarrd", group = "BlackTigers")
 // @Autonomous(...) is the other common choice
-public class BlackTigersTeleOp extends OpMode {
+public class BlackTigersTeleOpMoveFowarrd extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
-    BlackTigersHardware robot = new BlackTigersHardware();
-    boolean isReloading = false;
-    boolean isCollecting = false;
-    boolean isShootingFinishedSpeeding = false;
-    boolean isShootingFinishedSlowing = true;
-    final double ReloadingSpeed = -0.95;
-    final double CollectionSpeed = 1;
+    public DcMotor leftMotor   = null;
+    public DcMotor  rightMotor  = null;
+
 
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
-        robot.init(hardwareMap);
+
+        leftMotor   = hardwareMap.dcMotor.get("left_drive");
+        rightMotor  = hardwareMap.dcMotor.get("right_drive");
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
     }
 
     @Override
@@ -82,8 +85,8 @@ public class BlackTigersTeleOp extends OpMode {
             rightPower=rightPower/4;
         }
         DbgLog.msg("Left Stick: " + leftPower + "; Right Stick: " + rightPower);
-        robot.leftMotor.setPower(leftPower);
-        robot.rightMotor.setPower(rightPower);
+        leftMotor.setPower(leftPower);
+        rightMotor.setPower(rightPower);}
 //        if (gamepad2.right_trigger > 0) {
 //            if (runtime.milliseconds() % 40 < 5) {
 //                robot.shootingMotor.setPower(Range.clip(robot.shootingMotor.getPower() + 0.02, 0, 0.95));
@@ -96,54 +99,13 @@ public class BlackTigersTeleOp extends OpMode {
 //                robot.shootingMotor.setPower(0);
 //            }
 //        }
-        if (gamepad2.right_trigger > 0) {
-            robot.shootingMotor.setPower(1);
-        } else {
-            robot.shootingMotor.setPower(0);
-        }
-//       shooting motor need to be added
-        if (gamepad2.left_bumper && gamepad2.a && gamepad2.right_bumper && gamepad2.x && gamepad2.b) {
-            robot.reloadingMotor.setPower(0);
-            isCollecting = false;
-        } else if (gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
-            robot.collectionMotor.setPower(CollectionSpeed);
-            robot.reloadingMotor.setPower(ReloadingSpeed);
-        } else if (!gamepad2.a && gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
-            robot.collectionMotor.setPower(-CollectionSpeed);
-            robot.reloadingMotor.setPower(-ReloadingSpeed);
-        } else if (!gamepad2.a && !gamepad2.left_bumper && gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
-            robot.collectionMotor.setPower(CollectionSpeed);
-            robot.reloadingMotor.setPower(0);
-        } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && gamepad2.x && !gamepad2.b) {
-            robot.collectionMotor.setPower(0);
-            robot.reloadingMotor.setPower(ReloadingSpeed);
-            isCollecting = false;
-        } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && gamepad2.b) {
-            robot.reloadingMotor.setPower(-ReloadingSpeed / 2);
-            robot.collectionMotor.setPower(0);
-        } else {
-            robot.collectionMotor.setPower(0);
-            robot.reloadingMotor.setPower(0);
-        }
 
-        //Beacons
-        if (gamepad2.dpad_right) {
-            robot.beaconsServo.setPosition(0.0);
-        } else if (gamepad2.dpad_left) {
-            robot.beaconsServo.setPosition(0.33);
 
-        }
-        telemetry.addData("shooting speed", "%f", robot.shootingMotor.getPower());
-        telemetry.addData("Path2", "Running at %7d :%7d",
-                robot.leftMotor.getCurrentPosition(),
-                robot.rightMotor.getCurrentPosition());
-        telemetry.addData("gyro", robot.gyro.getHeading());
-        telemetry.update();
+
+    public void stop(){
 
     }
-
-    @Override
-    public void stop() {
-    }
-
 }
+
+
+

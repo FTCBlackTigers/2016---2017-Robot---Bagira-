@@ -33,7 +33,8 @@ public class BlackTigersHardware
 
 
         leftMotor   = hwMap.dcMotor.get("left_drive");
-        rightMotor  = hwMap.dcMotor.get("right_drive");        collectionMotor = hwMap.dcMotor.get("collection_motor");
+        rightMotor  = hwMap.dcMotor.get("right_drive");
+        collectionMotor = hwMap.dcMotor.get("collection_motor");
         reloadingMotor = hwMap.dcMotor.get("reloading_motor");
         shootingMotor = hwMap.dcMotor.get("shooting_motor");
         beaconsServo = hwMap.servo.get("beacons_servo");
@@ -50,7 +51,6 @@ public class BlackTigersHardware
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         collectionMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         reloadingMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         collectionMotor.setPower(0);

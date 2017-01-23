@@ -61,21 +61,21 @@ public class BlackTigersAutonomousVisionRed extends LinearVisionOpMode {
 
 
         waitForStart();
-        RobotUtilities.moveForward(0.95, -48, 3,this,robot,telemetry); // Power:1 Distance:55 CM Time:3
-        RobotUtilities.gyroRotate(-40, robot, telemetry, this);
-        RobotUtilities.moveForward(0.95, -115, 5,this, robot, telemetry);
+        RobotUtilities.moveForward(0.95, -45, 3,this,robot,telemetry); // Power:1 Distance:55 CM Time:3
+        RobotUtilities.gyroRotate(-45, robot, telemetry, this);
+        RobotUtilities.moveForward(0.95, -118, 5,this, robot, telemetry);
         RobotUtilities.gyroRotate(-45, robot, telemetry, this);
        if(beacon.getAnalysis().isLeftRed()){
             robot.beaconsServo.setPosition(0.0);
         }else if(beacon.getAnalysis().isRightRed()){
             robot.beaconsServo.setPosition(0.33);
         }// beacon analysis and reaction
-        RobotUtilities.moveForward(0.95, -55, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
+        RobotUtilities.moveForward(0.95, -47, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
        robot.beaconsServo.setPosition(0);
-       RobotUtilities.moveForward(0.95, 36, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
-       RobotUtilities.gyroRotate(85,robot,telemetry,this);
-       RobotUtilities.moveForward(0.95, -122, 7,this,robot,telemetry);
-       RobotUtilities.gyroRotate(-85,robot,telemetry,this);
+       RobotUtilities.moveForward(0.95, 60, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
+       RobotUtilities.gyroRotate(-90,robot,telemetry,this);
+       RobotUtilities.moveForward(0.95, 120, 7,this,robot,telemetry);
+       RobotUtilities.gyroRotate(90,robot,telemetry,this);
        RobotUtilities.moveForward(0.95 , -20, 3,this,robot,telemetry);
         if(beacon.getAnalysis().isLeftRed()){
             robot.beaconsServo.setPosition(0.0);

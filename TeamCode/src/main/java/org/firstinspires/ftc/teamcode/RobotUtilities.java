@@ -24,8 +24,10 @@ public class RobotUtilities {
     private static ElapsedTime runtime = new ElapsedTime();
 
     public static double normalizePower(double power) {
-        return Math.pow(power,3);
+        return Range.clip(Math.pow(power,7), -0.7,0.7);
     }
+
+
 
     public static void moveForward(double speed,
                                    double cmToDrive,
@@ -37,6 +39,8 @@ public class RobotUtilities {
         if (opMode.opModeIsActive()) {
             robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
 
             // Determine new target position, and pass to motor controller
             int ticksToDrive = (int) (cmToDrive * COUNTS_PER_CM);
@@ -73,8 +77,12 @@ public class RobotUtilities {
                         robot.rightMotor.setPower(Range.clip(getPowerToDrive(Math.abs(speed), percentage) - getErrorFraction(direction), 0, 1));
                     }
                 } else {
-                    robot.leftMotor.setPower(getPowerToDrive(Math.abs(speed), percentage));
-                    robot.rightMotor.setPower(getPowerToDrive(Math.abs(speed), percentage));
+                    double power = getPowerToDrive(Math.abs(speed), percentage);
+                    if(power == 0) {
+                        break;
+                    }
+                    robot.leftMotor.setPower(power);
+                    robot.rightMotor.setPower(power);
                 }
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
@@ -101,7 +109,11 @@ public class RobotUtilities {
         if(percentageOfDistance < 0.75) {
             return maxSpeed;
         } else {
-            return (1-percentageOfDistance) * maxSpeed;
+            double speed = (1-Math.sqrt(percentageOfDistance)) * maxSpeed;
+            if(speed < 0.03) {
+                return 0.1;
+            }
+            return speed;
         }
     }
 
@@ -118,7 +130,8 @@ public class RobotUtilities {
         } else if (targetPosition < 0) {
             targetPosition += 360;
         }
-        while(opMode.opModeIsActive() && Math.abs(targetPosition-robot.gyro.getHeading()) > 3) {
+        while(opMode.opModeIsActive() && Math.abs(targetPosition-robot.gyro.getHeading()) > 1) {
+//            while(opMode.opModeIsActive() && Math.abs(targetPosition-robot.gyro.getHeading()) > 3) {
             if(degrees > 0) {
                 robot.leftMotor.setPower(ROTATE_SPEED);
                 robot.rightMotor.setPower(-ROTATE_SPEED);
