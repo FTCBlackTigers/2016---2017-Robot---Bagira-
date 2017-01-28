@@ -37,13 +37,13 @@ public class BlackTigersHardware
         collectionMotor = hwMap.dcMotor.get("collection_motor");
         reloadingMotor = hwMap.dcMotor.get("reloading_motor");
         shootingMotor = hwMap.dcMotor.get("shooting_motor");
-        beaconsServo = hwMap.servo.get("beacons_servo");
+//        beaconsServo = hwMap.servo.get("beacons_servo");
         gyro = hwMap.gyroSensor.get("gyro");
 
-        leftMotor.setDirection(DcMotor.Direction.FORWARD);
-        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        rightMotor.setDirection(DcMotor.Direction.FORWARD);
         collectionMotor.setDirection(DcMotor.Direction.REVERSE);
-        reloadingMotor.setDirection(DcMotor.Direction.REVERSE);
+        reloadingMotor.setDirection(DcMotor.Direction.FORWARD);
         shootingMotor.setDirection(DcMotor.Direction.FORWARD);
 
         shootingMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -56,9 +56,9 @@ public class BlackTigersHardware
         collectionMotor.setPower(0);
         reloadingMotor.setPower(0);
         shootingMotor.setPower(0);
-        beaconsServo.resetDeviceConfigurationForOpMode();
-        beaconsServo.setDirection(Servo.Direction.REVERSE);
-        beaconsServo.setPosition(0);
+//        beaconsServo.resetDeviceConfigurationForOpMode();
+//        beaconsServo.setDirection(Servo.Direction.REVERSE);
+//        beaconsServo.setPosition(0);
 
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

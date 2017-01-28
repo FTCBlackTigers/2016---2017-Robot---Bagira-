@@ -38,6 +38,7 @@ public class BlackTigersAutonomousVisionBlue extends LinearVisionOpMode {
         robot.gyro.calibrate();
 
         robot.gyro.resetZAxisIntegrator();
+        telemetry.addData(">", "Finished");
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -71,24 +72,16 @@ public class BlackTigersAutonomousVisionBlue extends LinearVisionOpMode {
         RobotUtilities.gyroRotate(45, robot, telemetry, this);
         RobotUtilities.moveForward(0.95, -118, 5, this, robot, telemetry);
         RobotUtilities.gyroRotate(45, robot, telemetry, this);
-        if (beacon.getAnalysis().isLeftBlue()) {
-            robot.beaconsServo.setPosition(0.0);
-        } else if (beacon.getAnalysis().isRightBlue()) {
-            robot.beaconsServo.setPosition(0.33);
-        }// beacon analysis and reaction
+        RobotUtilities.pressBeacon(RobotUtilities.Color.BLUE, robot, beacon);
         RobotUtilities.moveForward(0.95, -47,3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
-        robot.beaconsServo.setPosition(0);
+        RobotUtilities.resetBeaconArm(robot);
 
         RobotUtilities.moveForward(0.95, 60, 3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
         RobotUtilities.gyroRotate(90, robot, telemetry, this);
         RobotUtilities.moveForward(0.95, 120, 7, this, robot, telemetry);
         RobotUtilities.gyroRotate(-90, robot, telemetry, this);
         RobotUtilities.moveForward(0.95, -20, 3, this, robot, telemetry);
-        if (beacon.getAnalysis().isLeftBlue()) {
-            robot.beaconsServo.setPosition(0.0);
-        } else if (beacon.getAnalysis().isRightBlue()) {
-            robot.beaconsServo.setPosition(0.33);
-        }// beacon analysis and reaction
+        RobotUtilities.pressBeacon(RobotUtilities.Color.BLUE, robot, beacon);
         RobotUtilities.moveForward(0.95, -40,3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
 
 

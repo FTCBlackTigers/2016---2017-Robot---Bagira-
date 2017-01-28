@@ -6,13 +6,23 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.lasarobotics.vision.android.Cameras;
+import org.lasarobotics.vision.ftc.resq.Beacon;
 import org.lasarobotics.vision.opmode.LinearVisionOpMode;
+import org.lasarobotics.vision.opmode.VisionOpMode;
+import org.lasarobotics.vision.opmode.extensions.BeaconExtension;
+import org.lasarobotics.vision.opmode.extensions.CameraControlExtension;
+import org.lasarobotics.vision.util.ScreenOrientation;
+import org.opencv.core.Size;
 
 /**
  * Created by user on 05/11/2016.
  */
 
 public class RobotUtilities {
+
+    public static double beaconArmLeft = 0.33;
+    public static double beaconArmRight = 0.0;
 
     static final double COUNTS_PER_MOTOR_REV = 560;
     static final double DRIVE_GEAR_REDUCTION = 3.8;
@@ -147,5 +157,47 @@ public class RobotUtilities {
         robot.leftMotor.setPower(0);
         robot.rightMotor.setPower(0);
     }
+
+    private static void pressBlueBeacon(BlackTigersHardware hw, BeaconExtension beacon) {
+        if (beacon.getAnalysis().isLeftBlue()) {
+            hw.beaconsServo.setPosition(beaconArmLeft);
+        } else if (beacon.getAnalysis().isRightBlue()) {
+            hw.beaconsServo.setPosition(beaconArmRight);
+        }// beacon analysis and reaction
+    }
+    private static void pressRedBeacon(BlackTigersHardware hw, BeaconExtension beacon) {
+        if (beacon.getAnalysis().isLeftBlue()) {
+            hw.beaconsServo.setPosition(beaconArmLeft);
+        } else if (beacon.getAnalysis().isRightBlue()) {
+            hw.beaconsServo.setPosition(beaconArmRight);
+        }// beacon analysis and reaction
+    }
+
+    public static void pressBeacon(Color color, BlackTigersHardware hw, BeaconExtension beacon) {
+        if(color == Color.BLUE) {
+            pressBlueBeacon(hw, beacon);
+        } else if (color==Color.RED) {
+            pressRedBeacon(hw, beacon);
+        }
+    }
+
+    static enum Color {
+        BLUE, RED;
+    }
+
+    public static void resetBeaconArm(BlackTigersHardware hw) {
+        hw.beaconsServo.setPosition(beaconArmRight);
+    }
+public static void cameraSetup (LinearVisionOpMode opMode){
+    opMode.setCamera(Cameras.SECONDARY);
+    opMode.setFrameSize(new Size(1080, 720));
+    opMode.beacon.setAnalysisMethod(Beacon.AnalysisMethod.COMPLEX);
+    opMode.beacon.setColorToleranceRed(0); //change
+    opMode.beacon.setColorToleranceBlue(0); //change
+    opMode.rotation.setIsUsingSecondaryCamera(true);
+    opMode.rotation.setActivityOrientationFixed(ScreenOrientation.PORTRAIT);
+    opMode.cameraControl.setColorTemperature(CameraControlExtension.ColorTemperature.AUTO);
+    opMode.cameraControl.setAutoExposureCompensation();
+}
 
 }

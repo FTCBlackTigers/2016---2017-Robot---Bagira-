@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.lasarobotics.vision.android.Cameras;
 import org.lasarobotics.vision.ftc.resq.Beacon;
 import org.lasarobotics.vision.opmode.LinearVisionOpMode;
+import org.lasarobotics.vision.opmode.VisionOpMode;
 import org.lasarobotics.vision.opmode.extensions.CameraControlExtension;
 import org.lasarobotics.vision.util.ScreenOrientation;
 import org.opencv.core.Size;
@@ -38,24 +39,17 @@ import org.opencv.core.Size;
         robot.gyro.calibrate();
 
         robot.gyro.resetZAxisIntegrator();
+        telemetry.addData(">", "Finished");
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.shootingMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForVisionStart();
-        this.setCamera(Cameras.SECONDARY);
-        this.setFrameSize(new Size(1080, 720));
-        enableExtension(Extensions.BEACON);
-        enableExtension(Extensions.ROTATION);
-        enableExtension(Extensions.CAMERA_CONTROL);
-        beacon.setAnalysisMethod(Beacon.AnalysisMethod.COMPLEX);
-        beacon.setColorToleranceRed(0); //change
-        beacon.setColorToleranceBlue(0); //change
-        rotation.setIsUsingSecondaryCamera(true);
-        rotation.setActivityOrientationFixed(ScreenOrientation.PORTRAIT);
-        cameraControl.setColorTemperature(CameraControlExtension.ColorTemperature.AUTO);
-        cameraControl.setAutoExposureCompensation();
+        RobotUtilities.cameraSetup(this);
+        enableExtension(VisionOpMode.Extensions.BEACON);
+        enableExtension(VisionOpMode.Extensions.ROTATION);
+        enableExtension(VisionOpMode.Extensions.CAMERA_CONTROL);
 
 
         telemetry.addData("Path0", "Starting at %7d :%7d",

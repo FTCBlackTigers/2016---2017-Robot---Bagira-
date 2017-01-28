@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.lasarobotics.vision.android.Cameras;
 import org.lasarobotics.vision.ftc.resq.Beacon;
 import org.lasarobotics.vision.opmode.LinearVisionOpMode;
+import org.lasarobotics.vision.opmode.VisionOpMode;
 import org.lasarobotics.vision.opmode.extensions.CameraControlExtension;
 import org.lasarobotics.vision.util.ScreenOrientation;
 import org.opencv.core.Size;
@@ -38,25 +39,17 @@ public class BlackTigersAutonomousBlueShootingBeacon extends LinearVisionOpMode 
         robot.gyro.calibrate();
 
         robot.gyro.resetZAxisIntegrator();
+        telemetry.addData(">", "Finished");
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.shootingMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForVisionStart();
-        this.setCamera(Cameras.SECONDARY);
-        this.setFrameSize(new Size(1080, 720));
-        enableExtension(Extensions.BEACON);
-        enableExtension(Extensions.ROTATION);
-        enableExtension(Extensions.CAMERA_CONTROL);
-        beacon.setAnalysisMethod(Beacon.AnalysisMethod.COMPLEX);
-        beacon.setColorToleranceRed(0);
-        beacon.setColorToleranceBlue(0);
-        rotation.setIsUsingSecondaryCamera(true);
-        rotation.setActivityOrientationFixed(ScreenOrientation.PORTRAIT);
-        cameraControl.setColorTemperature(CameraControlExtension.ColorTemperature.AUTO);
-        cameraControl.setAutoExposureCompensation();
-
+        RobotUtilities.cameraSetup(this);
+        enableExtension(VisionOpMode.Extensions.BEACON);
+        enableExtension(VisionOpMode.Extensions.ROTATION);
+        enableExtension(VisionOpMode.Extensions.CAMERA_CONTROL);
 
         telemetry.addData("Path0", "Starting at %7d :%7d",
                 robot.leftMotor.getCurrentPosition(),
@@ -99,13 +92,9 @@ public class BlackTigersAutonomousBlueShootingBeacon extends LinearVisionOpMode 
         RobotUtilities.gyroRotate(87,robot,telemetry, this);
         RobotUtilities.moveForward(0.95, -22, 2,this,robot,telemetry);
 
-       if(beacon.getAnalysis().isRightBlue()){
-            robot.beaconsServo.setPosition(0.0);
-        }else if(beacon.getAnalysis().isLeftBlue()){
-            robot.beaconsServo.setPosition(0.28);}
+        RobotUtilities.pressBeacon(RobotUtilities.Color.RED, robot, beacon);
         RobotUtilities.moveForward(0.95, -55, 3,this,robot,telemetry); // Power:1 Distance:20 CM Time:2
-        robot.beaconsServo.setPosition(0);
-
+      RobotUtilities.resetBeaconArm(robot);
         RobotUtilities.moveForward(1,40,1,this,robot,telemetry);
         RobotUtilities.gyroRotate(-45,robot,telemetry, this);
         RobotUtilities.moveForward(1,115,3,this,robot,telemetry);

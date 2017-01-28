@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.lasarobotics.vision.android.Cameras;
 import org.lasarobotics.vision.ftc.resq.Beacon;
 import org.lasarobotics.vision.opmode.LinearVisionOpMode;
+import org.lasarobotics.vision.opmode.VisionOpMode;
 import org.lasarobotics.vision.opmode.extensions.CameraControlExtension;
 import org.lasarobotics.vision.util.ScreenOrientation;
 import org.opencv.core.Size;
@@ -23,6 +24,8 @@ public class BlackTigersTest1 extends LinearVisionOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
 
+        telemetry.addData("Status", "Resetting Encoders");
+
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.shootingMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -33,24 +36,17 @@ public class BlackTigersTest1 extends LinearVisionOpMode {
         robot.gyro.calibrate();
 
         robot.gyro.resetZAxisIntegrator();
+        telemetry.addData(">", "Finished");
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.shootingMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForVisionStart();
-        this.setCamera(Cameras.SECONDARY);
-        this.setFrameSize(new Size(1080, 720));
-        enableExtension(Extensions.BEACON);
-        enableExtension(Extensions.ROTATION);
-        enableExtension(Extensions.CAMERA_CONTROL);
-        beacon.setAnalysisMethod(Beacon.AnalysisMethod.COMPLEX);
-        beacon.setColorToleranceRed(0); //change
-        beacon.setColorToleranceBlue(0); //change
-        rotation.setIsUsingSecondaryCamera(true);
-        rotation.setActivityOrientationFixed(ScreenOrientation.PORTRAIT);
-        cameraControl.setColorTemperature(CameraControlExtension.ColorTemperature.AUTO);
-        cameraControl.setAutoExposureCompensation();
+        RobotUtilities.cameraSetup(this);
+        enableExtension(VisionOpMode.Extensions.BEACON);
+        enableExtension(VisionOpMode.Extensions.ROTATION);
+        enableExtension(VisionOpMode.Extensions.CAMERA_CONTROL);
 
 
         telemetry.addData("Path0", "Starting at %7d :%7d",
@@ -64,7 +60,7 @@ public class BlackTigersTest1 extends LinearVisionOpMode {
 
         RobotUtilities.moveForward(0.5, -45, 5, this, robot, telemetry); // Power:1 Distance:55 CM Time:3
 //        RobotUtilities.gyroRotate(45, robot, telemetry, this);
-//        RobotUtilities.moveForward(0.95, -118, 5, this, robot, telemetry);
+        RobotUtilities.moveForward(0.95, -118, 5, this, robot, telemetry);
 //        RobotUtilities.gyroRotate(45, robot, telemetry, this);
 //        if (beacon.getAnalysis().isLeftBlue()) {
 //            robot.beaconsServo.setPosition(0.0);
@@ -90,7 +86,6 @@ public class BlackTigersTest1 extends LinearVisionOpMode {
 
             telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
             telemetry.addData("Beacon Confidence", beacon.getAnalysis().getConfidenceString());
-            telemetry.addData("Status", "Resetting Encoders");
             telemetry.update();
             waitOneFullHardwareCycle();
         }
