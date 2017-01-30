@@ -68,21 +68,21 @@ public class BlackTigersAutonomousVisionBlue extends LinearVisionOpMode {
 
         waitForStart();
 
-        RobotUtilities.moveForward(0.95, -45, 3, this, robot, telemetry); // Power:1 Distance:55 CM Time:3
+        RobotUtilities.moveForward(0.5, -45, 3, this, robot, telemetry); // Power:1 Distance:55 CM Time:3
         RobotUtilities.gyroRotate(45, robot, telemetry, this);
-        RobotUtilities.moveForward(0.95, -118, 5, this, robot, telemetry);
-        RobotUtilities.gyroRotate(45, robot, telemetry, this);
-        RobotUtilities.pressBeacon(RobotUtilities.Color.BLUE, robot, beacon);
-        RobotUtilities.moveForward(0.95, -47,3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
-        RobotUtilities.resetBeaconArm(robot);
+//        RobotUtilities.moveForward(0.95, -118, 5, this, robot, telemetry);
+//        RobotUtilities.gyroRotate(45, robot, telemetry, this);
+//        RobotUtilities.pressBeacon(RobotUtilities.Color.BLUE, robot, beacon);
+//        RobotUtilities.moveForward(0.95, -47,3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
+//        RobotUtilities.resetBeaconArm(robot);
 
-        RobotUtilities.moveForward(0.95, 60, 3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
-        RobotUtilities.gyroRotate(90, robot, telemetry, this);
-        RobotUtilities.moveForward(0.95, 120, 7, this, robot, telemetry);
-        RobotUtilities.gyroRotate(-90, robot, telemetry, this);
-        RobotUtilities.moveForward(0.95, -20, 3, this, robot, telemetry);
-        RobotUtilities.pressBeacon(RobotUtilities.Color.BLUE, robot, beacon);
-        RobotUtilities.moveForward(0.95, -40,3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
+//        RobotUtilities.moveForward(0.95, 60, 3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
+//        RobotUtilities.gyroRotate(90, robot, telemetry, this);
+//        RobotUtilities.moveForward(0.95, 120, 7, this, robot, telemetry);
+//        RobotUtilities.gyroRotate(-90, robot, telemetry, this);
+//        RobotUtilities.moveForward(0.95, -20, 3, this, robot, telemetry);
+//        RobotUtilities.pressBeacon(RobotUtilities.Color.BLUE, robot, beacon);
+//        RobotUtilities.moveForward(0.95, -40,3, this, robot, telemetry); // Power:1 Distance:20 CM Time:2
 
 
 //        moveForward(0.75, 40, -40, 4); // Power:1 Rotation Distance:6.6 Angle: 47.6 Time: 4

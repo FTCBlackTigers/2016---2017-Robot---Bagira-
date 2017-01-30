@@ -25,17 +25,23 @@ public class RobotUtilities {
     public static double beaconArmRight = 0.0;
 
     static final double COUNTS_PER_MOTOR_REV = 560;
-    static final double DRIVE_GEAR_REDUCTION = 3.8;
-    static final double ROTATE_SPEED = 0.25;
+    static final double DRIVE_GEAR_REDUCTION = 1;
+    static final double ROTATE_SPEED = 0.50;
     static final double WHEEL_DIAMETER_CM = 10.16;
     static final double CORRECTION_FACOTR = 0.15;
     static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_CM * 3.1415);
     private static ElapsedTime runtime = new ElapsedTime();
+    final static double normalSpeed = 0.75;
 
     public static double normalizePower(double power) {
-        return Range.clip(Math.pow(power,7), -0.7,0.7);
+        return normalSpeed * 0.8 * Range.clip(Math.pow(power,7), -1,1);
     }
+
+    public  static double maxNormalizePower(double power) {
+        return 0.8 * Range.clip(Math.pow(power,7), -1,1);
+    }
+
 
 
 
@@ -143,11 +149,11 @@ public class RobotUtilities {
         while(opMode.opModeIsActive() && Math.abs(targetPosition-robot.gyro.getHeading()) > 1) {
 //            while(opMode.opModeIsActive() && Math.abs(targetPosition-robot.gyro.getHeading()) > 3) {
             if(degrees > 0) {
-                robot.leftMotor.setPower(ROTATE_SPEED);
-                robot.rightMotor.setPower(-ROTATE_SPEED);
+                robot.leftMotor.setPower(ROTATE_SPEED/4*1.2);
+                robot.rightMotor.setPower(-ROTATE_SPEED/4);
             } else {
-                robot.leftMotor.setPower(-ROTATE_SPEED);
-                robot.rightMotor.setPower(ROTATE_SPEED);
+                robot.leftMotor.setPower(-ROTATE_SPEED/4*1.2);
+                robot.rightMotor.setPower(ROTATE_SPEED/4);
             }
             telemetry.addData("rotate0", "Starting Turn at %d", startPosition);
             telemetry.addData("rotate1", "Finishing Turn at %d", targetPosition);
