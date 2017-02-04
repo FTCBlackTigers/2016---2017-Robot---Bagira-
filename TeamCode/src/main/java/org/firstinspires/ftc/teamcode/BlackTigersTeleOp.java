@@ -75,8 +75,10 @@ public class BlackTigersTeleOp extends OpMode {
 
         double leftPower = -gamepad1.left_stick_y;
         double rightPower = -gamepad1.right_stick_y;
-        leftPower = RobotUtilities.normalizePower(leftPower);
-        rightPower = RobotUtilities.normalizePower(rightPower);
+//        leftPower = RobotUtilities.normalizePower(leftPower);
+//        rightPower = RobotUtilities.normalizePower(rightPower);
+
+
         if(gamepad1.right_bumper){
             leftPower=leftPower/4;
             rightPower=rightPower/4;
@@ -127,18 +129,18 @@ public class BlackTigersTeleOp extends OpMode {
         }
 
         //Beacons
-        if (gamepad2.dpad_right) {
+       /* if (gamepad2.dpad_right) {
             robot.beaconsServo.setPosition(0.0);
         } else if (gamepad2.dpad_left) {
             robot.beaconsServo.setPosition(0.33);
 
+
         }
         telemetry.addData("shooting speed", "%f", robot.shootingMotor.getPower());
-        telemetry.addData("Path2", "Running at %7d :%7d",
-                robot.leftMotor.getCurrentPosition(),
-                robot.rightMotor.getCurrentPosition());
+        telemetry.addData("Path2", "Running at %7d :%7d",robot.leftMotor.getCurrentPosition(),robot.rightMotor.getCurrentPosition());
         telemetry.addData("gyro", robot.gyro.getHeading());
         telemetry.update();
+*/
 
     }
 

@@ -1,25 +1,16 @@
 package org.firstinspires.ftc.teamcode;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.lasarobotics.vision.android.Cameras;
-import org.lasarobotics.vision.ftc.resq.Beacon;
 import org.lasarobotics.vision.opmode.LinearVisionOpMode;
 import org.lasarobotics.vision.opmode.VisionOpMode;
-import org.lasarobotics.vision.opmode.extensions.CameraControlExtension;
-import org.lasarobotics.vision.util.ScreenOrientation;
-import org.opencv.core.Size;
-
-/**
- * Created by user on 07/01/2017.
+/*
+ * Created by user on 01/02/2017.
  */
 
-@Disabled
-    @Autonomous(name = "Black Tigers Aggro Red Auto ", group = "BlackTigers Auto")
-    public class BlackTigersAutonomousAggresiveRed extends LinearVisionOpMode {
+
+@Autonomous(name = "BlackTigersAutoBlueBeacons", group = "BlackTigers Auto")
+    public class BlackTigersAutoBlueBeacons extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -33,43 +24,47 @@ import org.opencv.core.Size;
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.shootingMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        telemetry.addData(">", "Calibrating Gyro");    //
-        telemetry.update();
+        telemetry.addData(">", "Calibrating Gyro");
 
         robot.gyro.calibrate();
 
         robot.gyro.resetZAxisIntegrator();
         telemetry.addData(">", "Finished");
 
+
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.shootingMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForVisionStart();
-        RobotUtilities.cameraSetup(this);
+       /* RobotUtilities.cameraSetup(this);
         enableExtension(VisionOpMode.Extensions.BEACON);
         enableExtension(VisionOpMode.Extensions.ROTATION);
         enableExtension(VisionOpMode.Extensions.CAMERA_CONTROL);
+*/
 
 
         telemetry.addData("Path0", "Starting at %7d :%7d",
                 robot.leftMotor.getCurrentPosition(),
                 robot.rightMotor.getCurrentPosition());
-        telemetry.addData("gyro", robot.gyro.getHeading());
         telemetry.update();
 
 
         waitForStart();
-        if (runtime.seconds() < 5) {
-            robot.shootingMotor.setPower(0.9);
-            robot.collectionMotor.setPower(1);
-            robot.reloadingMotor.setPower(0.9);
-            robot.leftMotor.setPower(0);
-            robot.rightMotor.setPower(0);
-        }
-        RobotUtilities.moveForward(0.95, 200, 3, this, robot, telemetry); // Power:1 Distance:55 CM Time:3
-        RobotUtilities.gyroRotate(45, robot, telemetry, this);
-        RobotUtilities.moveForward(0.95, -18, 1, this, robot, telemetry);
+
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 200,10, this, robot, telemetry);
+
+
+
+
+
+
+
+
+
+
+
+
 
         while (opModeIsActive()) {
 
@@ -78,14 +73,9 @@ import org.opencv.core.Size;
             telemetry.addData("Status", "Resetting Encoders");
             telemetry.update();
 //
-//            if (beacon.getAnalysis().isLeftBlue()) {
-//                robot.beaconsServo.setPosition(0.40);
-//            } else if (beacon.getAnalysis().isRightBlue()) {
-//                robot.beaconsServo.setPosition(0.66);
-//            }// beacon analysis and reaction
+
             waitOneFullHardwareCycle();
         }
 
     }
 }
-
