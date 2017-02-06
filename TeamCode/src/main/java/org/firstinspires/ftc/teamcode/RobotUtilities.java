@@ -24,27 +24,25 @@ public class RobotUtilities {
 
     static final double COUNTS_PER_MOTOR_REV = 1120;
     static final double DRIVE_GEAR_REDUCTION = 1;
-    static final double ROTATE_SPEED = 0.50;
     static final double WHEEL_DIAMETER_CM = 10.16;
     static final double CORRECTION_FACOTR = 0.08;
     static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_CM * 3.1415);
     private static ElapsedTime runtime = new ElapsedTime();
-    final static double normalSpeed = 0.95;
+    final static double normalSpeed = 0.5;
+    static final double ROTATE_SPEED = 0.9;
 
     public static double normalizePower(double power) {
-        return normalSpeed * 0.8 * Range.clip(Math.pow(power, 7), -1, 1);
+        return normalSpeed * 0.85 * Range.clip(Math.pow(power, 7), -1, 1);
     }
 
     public static double maxNormalizePower(double power) {
-        return 0.8 * Range.clip(Math.pow(power, 7), -1, 1);
+        return 0.9 * Range.clip(Math.pow(power, 7), -1, 1);
     }
-
 
     public static void moveForward(double speed,
                                    double cmToDrive,
                                    double timeoutS, LinearVisionOpMode opMode, BlackTigersHardware robot, Telemetry telemetry) {
-
         int newLeftTarget;
         int newRightTarget;
         // Ensure that the opmode is still active
@@ -68,7 +66,7 @@ public class RobotUtilities {
             runtime.reset();
             robot.leftMotor.setPower(Math.abs(speed));
             robot.rightMotor.setPower(Math.abs(speed));
-
+            telemetry.addData("power",speed);
             int startDirection = robot.gyro.getHeading();
 
             // keep looping while we are still active, and there is time left, and both motors are running.
@@ -100,6 +98,7 @@ public class RobotUtilities {
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         robot.leftMotor.getCurrentPosition(),
                         robot.rightMotor.getCurrentPosition());
+                telemetry.addData("gyro", robot.gyro.getHeading());
                 telemetry.addData("Power", "left: %f, right: %f", robot.leftMotor.getPower(), robot.rightMotor.getPower());
                 telemetry.update();
             }
@@ -138,17 +137,27 @@ public class RobotUtilities {
         int targetPosition = startPosition + degrees;
         if (targetPosition > 360) {
             targetPosition -= 360;
-        } else if (targetPosition == 0) {
+        } else if (targetPosition <= 0) {
             targetPosition += 360;
         }
-        while (opMode.opModeIsActive() && Math.abs(targetPosition - robot.gyro.getHeading()) > 1) {
-//            while(opMode.opModeIsActive() && Math.abs(targetPosition-robot.gyro.getHeading()) > 3) {
+//        while (opMode.opModeIsActive() && Math.abs(targetPosition - robot.gyro.getHeading()) > 1) {
+        while(opMode.opModeIsActive() && Math.abs(targetPosition-robot.gyro.getHeading()) >= 2) {
             if (degrees > 0) {
-                robot.leftMotor.setPower(ROTATE_SPEED / 4 * 1.2);
-                robot.rightMotor.setPower(-ROTATE_SPEED / 4);
+                if (Math.abs((double) (targetPosition-robot.gyro.getHeading())/degrees) < 0.25) {
+                    robot.leftMotor.setPower(ROTATE_SPEED / 10 );
+                    robot.rightMotor.setPower(-ROTATE_SPEED / 10);
+                } else {
+                    robot.leftMotor.setPower(ROTATE_SPEED / 4 );
+                    robot.rightMotor.setPower(-ROTATE_SPEED / 4);
+                }
             } else {
-                robot.leftMotor.setPower(-ROTATE_SPEED / 4 * 1.2);
-                robot.rightMotor.setPower(ROTATE_SPEED / 4);
+                if (Math.abs((double) (targetPosition-robot.gyro.getHeading())/degrees) < 0.25) {
+                    robot.leftMotor.setPower(-ROTATE_SPEED / 10);
+                    robot.rightMotor.setPower(ROTATE_SPEED / 10);
+                } else {
+                    robot.leftMotor.setPower(-ROTATE_SPEED / 4);
+                    robot.rightMotor.setPower(ROTATE_SPEED / 4);
+                }
             }
             telemetry.addData("rotate0", "Starting Turn at %d", startPosition);
             telemetry.addData("rotate1", "Finishing Turn at %d", targetPosition);
@@ -158,48 +167,29 @@ public class RobotUtilities {
         robot.leftMotor.setPower(0);
         robot.rightMotor.setPower(0);
     }
-/*
-    private static void pressBlueBeacon(BlackTigersHardware hw, BeaconExtension beacon) {
-        if (beacon.getAnalysis().isLeftBlue()) {
-           //
-        } else if (beacon.getAnalysis().isRightBlue()) {
-           //
-        }///
-        // / beacon analysis and reaction
-    }
-    private static void pressRedBeacon(BlackTigersHardware hw, BeaconExtension beacon) {
-        if (beacon.getAnalysis().isLeftBlue()) {
-            //
-        } else if (beacon.getAnalysis().isRightBlue()) {
-            //
-        }
-        // beacon analysis and reaction
+
+    static public void calibrategyro(Telemetry telemetry ,BlackTigersHardware robot ,LinearVisionOpMode opMode ){
+        telemetry.addData(">", "Calibrating Gyro");
+        telemetry.update();
+
+        robot.gyro.calibrate();
+
+        robot.gyro.resetZAxisIntegrator();
+        telemetry.addData(">", "Finished");
+        telemetry.update();
     }
 
-    public static void pressBeacon(Color color, BlackTigersHardware hw, BeaconExtension beacon) {
-        if(color == Color.BLUE) {
-            pressBlueBeacon(hw, beacon);
-        } else if (color==Color.RED) {
-            pressRedBeacon(hw, beacon);
-        }
+    public static void cameraSetup (LinearVisionOpMode opMode){
+        opMode.setCamera(Cameras.SECONDARY);
+        opMode.setFrameSize(new Size(1080, 720));
+        opMode.beacon.setAnalysisMethod(Beacon.AnalysisMethod.COMPLEX);
+        opMode.beacon.setColorToleranceRed(0); //change
+        opMode.beacon.setColorToleranceBlue(0); //change
+        opMode.rotation.setIsUsingSecondaryCamera(true);
+        opMode.rotation.setActivityOrientationFixed(ScreenOrientation.PORTRAIT);
+        opMode.cameraControl.setColorTemperature(CameraControlExtension.ColorTemperature.AUTO);
+        opMode.cameraControl.setAutoExposureCompensation();
     }
 
-    static enum Color {
-        BLUE, RED;
-    }
-
-
-public static void cameraSetup (LinearVisionOpMode opMode){
-    opMode.setCamera(Cameras.SECONDARY);
-    opMode.setFrameSize(new Size(1080, 720));
-    opMode.beacon.setAnalysisMethod(Beacon.AnalysisMethod.COMPLEX);
-    opMode.beacon.setColorToleranceRed(0); //change
-    opMode.beacon.setColorToleranceBlue(0); //change
-    opMode.rotation.setIsUsingSecondaryCamera(true);
-    opMode.rotation.setActivityOrientationFixed(ScreenOrientation.PORTRAIT);
-    opMode.cameraControl.setColorTemperature(CameraControlExtension.ColorTemperature.AUTO);
-    opMode.cameraControl.setAutoExposureCompensation();
-}
-*/
 
 }

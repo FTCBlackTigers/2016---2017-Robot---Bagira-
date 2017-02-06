@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -36,8 +37,8 @@ public class BlackTigersHardware
         shootingMotor = hwMap.dcMotor.get("shooting_motor");
         gyro = hwMap.gyroSensor.get("gyro");
 
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        rightMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
         collectionMotor.setDirection(DcMotor.Direction.REVERSE);
         reloadingMotor.setDirection(DcMotor.Direction.FORWARD);
         shootingMotor.setDirection(DcMotor.Direction.FORWARD);
