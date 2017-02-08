@@ -70,29 +70,29 @@ public class RobotUtilities {
             int startDirection = robot.gyro.getHeading();
 
             // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opMode.opModeIsActive() &&
+           while (opMode.opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
                     (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())) {
                 int direction = robot.gyro.getHeading() - startDirection;
-                double percentage = (double) (ticksToDrive - (newLeftTarget - robot.leftMotor.getCurrentPosition())) / (double) ticksToDrive;
+              double percentage = (double) (ticksToDrive - (newLeftTarget - robot.leftMotor.getCurrentPosition())) / (double) ticksToDrive;
                 if (percentage > 1) {
                     break;
                 }
-                if (direction > 0) {
-                    if (direction <= 180) {
-                        robot.leftMotor.setPower(Range.clip(getPowerToDrive(Math.abs(speed), percentage) - getErrorFraction(direction), 0, 1));
-                    } else {
-                        direction = Math.abs(direction - 360);
-                        robot.rightMotor.setPower(Range.clip(getPowerToDrive(Math.abs(speed), percentage) - getErrorFraction(direction), 0, 1));
-                    }
-                } else {
+//                if (direction > 0) {
+//                    if (direction <= 180) {
+//                        robot.leftMotor.setPower(Range.clip(getPowerToDrive(Math.abs(speed), percentage) - getErrorFraction(direction), 0, 1));
+//                    } else {
+//                        direction = Math.abs(direction - 360);
+//                        robot.rightMotor.setPower(Range.clip(getPowerToDrive(Math.abs(speed), percentage) - getErrorFraction(direction), 0, 1));
+//                    }
+//                } else {
                     double power = getPowerToDrive(Math.abs(speed), percentage);
                     if (power == 0) {
                         break;
                     }
                     robot.leftMotor.setPower(power);
                     robot.rightMotor.setPower(power);
-                }
+//                }
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",

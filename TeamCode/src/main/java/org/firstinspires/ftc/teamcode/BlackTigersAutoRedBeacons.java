@@ -4,14 +4,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.lasarobotics.vision.opmode.LinearVisionOpMode;
-import org.lasarobotics.vision.opmode.VisionOpMode;
 /*
  * Created by user on 01/02/2017.
  */
 
 
-@Autonomous(name = "BlackTigersAutoBlueBeacons", group = "BlackTigers Auto")
-    public class BlackTigersAutoBlueBeacons extends LinearVisionOpMode {
+@Autonomous(name = "BlackTigersAutoRedBeacons", group = "BlackTigers Auto")
+    public class BlackTigersAutoRedBeacons extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -25,9 +24,9 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
         robot.shootingMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         RobotUtilities.calibrategyro(telemetry , robot ,this);
-        enableExtension(VisionOpMode.Extensions.BEACON);
-        enableExtension(VisionOpMode.Extensions.ROTATION);
-        enableExtension(VisionOpMode.Extensions.CAMERA_CONTROL);
+        enableExtension(Extensions.BEACON);
+        enableExtension(Extensions.ROTATION);
+        enableExtension(Extensions.CAMERA_CONTROL);
         RobotUtilities.cameraSetup(this);
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -43,12 +42,12 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
 
         waitForStart();
 
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -52,10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(40, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -90,10, this, robot, telemetry);
-        sleep(200);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 52,10, this, robot, telemetry);
         RobotUtilities.gyroRotate(-40, robot, telemetry, this);
-
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 90,10, this, robot, telemetry);
+        sleep(200);
+        RobotUtilities.gyroRotate(43, robot, telemetry, this);
+/*
         boolean isBlueRight = false;
         sleep(500);
         RobotUtilities.gyroRotate(85, robot, telemetry, this);
@@ -83,7 +82,7 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
             RobotUtilities.moveForward(RobotUtilities.normalSpeed, 20 ,10, this, robot, telemetry);
             sleep(700);
             RobotUtilities.moveForward(RobotUtilities.normalSpeed, -23 ,10, this, robot, telemetry);
-        }
+        }*/
 
         while (opModeIsActive()) {
             telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
