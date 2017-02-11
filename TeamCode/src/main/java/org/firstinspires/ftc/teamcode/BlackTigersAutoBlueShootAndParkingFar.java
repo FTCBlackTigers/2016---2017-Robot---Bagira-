@@ -40,7 +40,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 20,10, this, robot, telemetry);
         RobotUtilities.gyroRotate(39, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 50,10, this, robot, telemetry);
-
+        sleep(500);
         robot.reloadingMotor.setPower(-0.75);
         sleep(800);
         robot.reloadingMotor.setPower(0);
@@ -50,10 +50,10 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         robot.shootingMotor.setPower(0);
         robot.reloadingMotor.setPower(0);
 
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 63,10, this, robot, telemetry);
-        sleep(9000);
-        RobotUtilities.gyroRotate(-95, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -150,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-130, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -140,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(30, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -30,10, this, robot, telemetry);
 
         while (opModeIsActive()) {
             telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());

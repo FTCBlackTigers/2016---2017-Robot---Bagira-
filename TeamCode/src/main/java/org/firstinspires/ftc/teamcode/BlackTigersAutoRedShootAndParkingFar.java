@@ -9,8 +9,8 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
  */
 
 
-@Autonomous(name = "BlackTigersAutoBlueShoot&Parking", group = "BlackTigers Auto")
-    public class BlackTigersAutoBlueShootAndParking extends LinearVisionOpMode {
+@Autonomous(name = "BlackTigersAutoRedShoot&ParkingFar", group = "BlackTigers Auto")
+    public class BlackTigersAutoRedShootAndParkingFar extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -36,21 +36,24 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         telemetry.update();
 
         waitForStart();
-        robot.shootingMotor.setPower(1);
-        sleep(1500);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 35,10, this, robot, telemetry);
-        robot.reloadingMotor.setPower(-0.95);
+        robot.shootingMotor.setPower(0.75);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 20,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-39, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 50,10, this, robot, telemetry);
+        sleep(500);
+        robot.reloadingMotor.setPower(-0.75);
         sleep(800);
         robot.reloadingMotor.setPower(0);
         sleep(4000);
-        robot.reloadingMotor.setPower(-0.95);
+        robot.reloadingMotor.setPower(-0.75);
         sleep(1300);
         robot.shootingMotor.setPower(0);
         robot.reloadingMotor.setPower(0);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 35,10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(-60, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -95,10, this, robot, telemetry);
 
+        RobotUtilities.gyroRotate(130, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -140,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-30, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -30,10, this, robot, telemetry);
 
         while (opModeIsActive()) {
             telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
