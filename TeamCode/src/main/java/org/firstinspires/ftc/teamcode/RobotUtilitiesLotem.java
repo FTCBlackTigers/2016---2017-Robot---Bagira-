@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -9,8 +8,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.lasarobotics.vision.android.Cameras;
 import org.lasarobotics.vision.ftc.resq.Beacon;
 import org.lasarobotics.vision.opmode.LinearVisionOpMode;
-import org.lasarobotics.vision.opmode.VisionOpMode;
-import org.lasarobotics.vision.opmode.extensions.BeaconExtension;
 import org.lasarobotics.vision.opmode.extensions.CameraControlExtension;
 import org.lasarobotics.vision.util.ScreenOrientation;
 import org.opencv.core.Size;
@@ -19,7 +16,7 @@ import org.opencv.core.Size;
  * Created by user on 05/11/2016.
  */
 
-public class RobotUtilities {
+public class RobotUtilitiesLotem {
 
 
     static final double COUNTS_PER_MOTOR_REV = 1120;
@@ -33,7 +30,7 @@ public class RobotUtilities {
     static final double ROTATE_SPEED = 0.9;
 
     public static double normalizePower(double power) {
-        return normalSpeed * 0.95 * Range.clip(Math.pow(power, 7), -1, 1);
+        return normalSpeed * 0.85 * Range.clip(Math.pow(power, 7), -1, 1);
     }
 
     public static double maxNormalizePower(double power) {
@@ -130,44 +127,55 @@ public class RobotUtilities {
     public static double getErrorFraction(int direction) {
         return Range.clip(direction * CORRECTION_FACOTR, 0, 1);
     }
+public static void gayrorotate (int targetposition,boolean direction, BlackTigersHardware robot, Telemetry telemetry, LinearVisionOpMode opMode){
+    int startPosition = robot.gyro.getHeading();
+if (direction==false &&opMode.opModeIsActive() && Math.abs(targetposition - robot.gyro.getHeading()) > 2){
+    robot.leftMotor.setPower(ROTATE_SPEED / 6 );
+    robot.rightMotor.setPower(-ROTATE_SPEED / 6);
+}else if (direction== true &&opMode.opModeIsActive() && Math.abs(targetposition - robot.gyro.getHeading()) > 2);
 
-    public static void gyroRotate(int degrees, BlackTigersHardware robot, Telemetry telemetry, LinearVisionOpMode opMode) {
-        //degrees=-degrees; // gyro is backwards
-        int startPosition = robot.gyro.getHeading();
-        int targetPosition = startPosition + degrees;
-        if (targetPosition > 360) {
-            targetPosition -= 360;
-        } else if (targetPosition <= 0) {
-            targetPosition += 360;
-        }
-//        while (opMode.opModeIsActive() && Math.abs(targetPosition - robot.gyro.getHeading()) > 1) {
-        while(opMode.opModeIsActive() && Math.abs(targetPosition-robot.gyro.getHeading()) >= 2) {
-            if (degrees > 0) {
-                if (Math.abs((double) (targetPosition-robot.gyro.getHeading())/degrees) < 0.25) {
-                    robot.leftMotor.setPower(ROTATE_SPEED / 10 );
-                    robot.rightMotor.setPower(-ROTATE_SPEED / 10);
-                } else {
-                    robot.leftMotor.setPower(ROTATE_SPEED / 4 );
-                    robot.rightMotor.setPower(-ROTATE_SPEED / 4);
-                }
-            } else {
-                if (Math.abs((double) (targetPosition-robot.gyro.getHeading())/degrees) < 0.25) {
-                    robot.leftMotor.setPower(-ROTATE_SPEED / 10);
-                    robot.rightMotor.setPower(ROTATE_SPEED / 10);
-                } else {
-                    robot.leftMotor.setPower(-ROTATE_SPEED / 4);
-                    robot.rightMotor.setPower(ROTATE_SPEED / 4);
-                }
-            }
-            telemetry.addData("rotate0", "Starting Turn at %d", startPosition);
-            telemetry.addData("rotate1", "Finishing Turn at %d", targetPosition);
-            telemetry.addData("rotate2", "Robot gyro currently at %d", robot.gyro.getHeading());
-            telemetry.update();
-        }
-        robot.leftMotor.setPower(0);
-        robot.rightMotor.setPower(0);
-    }
-
+    robot.leftMotor.setPower(-ROTATE_SPEED / 6 );
+    robot.rightMotor.setPower(ROTATE_SPEED / 6);}
+//    public static void gyroRotate(int degrees, BlackTigersHardware robot, Telemetry telemetry, LinearVisionOpMode opMode) {
+//        //degrees=-degrees; // gyro is backwards
+//        int startPosition = robot.gyro.getHeading();
+//        int targetPosition = startPosition + degrees;
+//        if (targetPosition > 360) {
+//            targetPosition -= 360;
+//        } else if (targetPosition <= 0) {
+//            targetPosition += 360;
+//        }
+////        while (opMode.opModeIsActive() && Math.abs(targetPosition - robot.gyro.getHeading()) > 1) {
+//        while(opMode.opModeIsActive() && Math.abs(targetPosition-robot.gyro.getHeading()) >= 2) {
+//            if (degrees > 0) {
+//                if (Math.abs((double) (targetPosition-robot.gyro.getHeading())/degrees) < 0.25) {
+//                    robot.leftMotor.setPower(ROTATE_SPEED / 10 );
+//                    robot.rightMotor.setPower(-ROTATE_SPEED / 10);
+//                } else {
+//                    robot.leftMotor.setPower(ROTATE_SPEED / 4 );
+//                    robot.rightMotor.setPower(-ROTATE_SPEED / 4);
+//                }
+//            } else {
+//                if (Math.abs((double) (targetPosition-robot.gyro.getHeading())/degrees) < 0.25) {
+//                    robot.leftMotor.setPower(-ROTATE_SPEED / 10);
+//                    robot.rightMotor.setPower(ROTATE_SPEED / 10);
+//                } else {
+//                    robot.leftMotor.setPower(-ROTATE_SPEED / 4);
+//                    robot.rightMotor.setPower(ROTATE_SPEED / 4);
+//                }
+//            }
+//            telemetry.addData("rotate0", "Starting Turn at %d", startPosition);
+//            telemetry.addData("rotate1", "Finishing Turn at %d", targetPosition);
+//            telemetry.addData("rotate2", "Robot gyro currently at %d", robot.gyro.getHeading());
+//            telemetry.update();
+//        }
+//        robot.leftMotor.setPower(0);
+//        robot.rightMotor.setPower(0);
+//    }
+//   public static void gyroRotate(int gyroposition, BlackTigersHardware robot, Telemetry telemetry, LinearVisionOpMode opMode){
+//       int degrees = robot.gyro.getHeading();
+//       if (degrees){}
+//   }
     static public void calibrategyro(Telemetry telemetry ,BlackTigersHardware robot ,LinearVisionOpMode opMode ){
         telemetry.addData(">", "Calibrating Gyro");
         telemetry.update();
@@ -181,7 +189,7 @@ public class RobotUtilities {
 
     public static void cameraSetup (LinearVisionOpMode opMode){
         opMode.setCamera(Cameras.SECONDARY);
-        opMode.setFrameSize(new Size(720, 1080));
+        opMode.setFrameSize(new Size(1080, 720));
         opMode.beacon.setAnalysisMethod(Beacon.AnalysisMethod.COMPLEX);
         opMode.beacon.setColorToleranceRed(0); //change
         opMode.beacon.setColorToleranceBlue(0); //change

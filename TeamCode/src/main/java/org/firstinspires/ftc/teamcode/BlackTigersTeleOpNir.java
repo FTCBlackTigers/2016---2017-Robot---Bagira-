@@ -48,7 +48,7 @@ public class BlackTigersTeleOpNir extends OpMode {
     boolean isCollecting = false;
     boolean isShootingFinishedSpeeding = false;
     boolean isShootingFinishedSlowing = true;
-    final double ReloadingSpeed = -0.95;
+    final double ReloadingSpeed = -0.85;
     final double CollectionSpeed = 1;
     final double normalSpeed = 0.75;
     final double maxSpeed = 0.90;
@@ -105,28 +105,38 @@ public class BlackTigersTeleOpNir extends OpMode {
         if (gamepad2.left_bumper && gamepad2.a && gamepad2.right_bumper && gamepad2.x && gamepad2.b) {
             robot.reloadingMotor.setPower(0);
             isCollecting = false;
-        } else if (gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
+        } else if (gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down) {
             robot.collectionMotor.setPower(CollectionSpeed);
             robot.reloadingMotor.setPower(ReloadingSpeed);
-        } else if (!gamepad2.a && gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
+        } else if (!gamepad2.a && gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down) {
             robot.collectionMotor.setPower(-CollectionSpeed);
             robot.reloadingMotor.setPower(-ReloadingSpeed);
-        } else if (!gamepad2.a && !gamepad2.left_bumper && gamepad2.right_bumper && !gamepad2.x && !gamepad2.b) {
+        } else if (!gamepad2.a && !gamepad2.left_bumper && gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down) {
             robot.collectionMotor.setPower(CollectionSpeed);
             robot.reloadingMotor.setPower(0);
-        } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && gamepad2.x && !gamepad2.b) {
+        } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down) {
             robot.collectionMotor.setPower(0);
             robot.reloadingMotor.setPower(ReloadingSpeed);
             isCollecting = false;
-        } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && gamepad2.b) {
+        } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down) {
             robot.reloadingMotor.setPower(-ReloadingSpeed / 2);
             robot.collectionMotor.setPower(0);
-        } else {
+        } else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && gamepad2.dpad_down){
+            robot.ballMotorRight.setPower(-0.80);
+            robot.ballMotorLeft.setPower(-0.80);
+        }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && gamepad2.dpad_up && !gamepad2.dpad_down){
+            robot.ballMotorRight.setPower(0.80);
+            robot.ballMotorLeft.setPower(0.80);
+        }else {
             robot.collectionMotor.setPower(0);
             robot.reloadingMotor.setPower(0);
+            robot.ballMotorRight.setPower(0);
+            robot.ballMotorLeft.setPower(0);
         }
 
     }
+
+
 
     @Override
     public void stop() {
