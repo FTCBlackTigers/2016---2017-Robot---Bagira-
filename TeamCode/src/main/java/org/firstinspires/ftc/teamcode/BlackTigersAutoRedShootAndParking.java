@@ -38,7 +38,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         waitForStart();
         robot.shootingMotor.setPower(1);
         sleep(1500);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 35,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, 30,10, this, robot, telemetry);
         robot.reloadingMotor.setPower(-0.95);
         sleep(800);
         robot.reloadingMotor.setPower(0);

@@ -181,7 +181,7 @@ public class RobotUtilities {
 
     public static void cameraSetup (LinearVisionOpMode opMode){
         opMode.setCamera(Cameras.SECONDARY);
-        opMode.setFrameSize(new Size(720, 1080));
+        opMode.setFrameSize(new Size(1080, 720));
         opMode.beacon.setAnalysisMethod(Beacon.AnalysisMethod.COMPLEX);
         opMode.beacon.setColorToleranceRed(0); //change
         opMode.beacon.setColorToleranceBlue(0); //change

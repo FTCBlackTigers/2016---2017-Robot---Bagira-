@@ -79,21 +79,19 @@ public class BlackTigersTeleOpNir extends OpMode {
         double rightPower = -gamepad1.right_stick_y;
 
 //        DbgLog.msg("Left Stick: " + leftPower + "; Right Stick: " + rightPower);
-        if((!gamepad1.right_bumper && !gamepad1.left_bumper) || (gamepad1.left_bumper && gamepad1.right_bumper)) {
+        if ((!gamepad1.right_bumper && !gamepad1.left_bumper) || (gamepad1.left_bumper && gamepad1.right_bumper)) {
             robot.leftMotor.setPower(RobotUtilities.normalizePower(leftPower));
             robot.rightMotor.setPower(RobotUtilities.normalizePower(rightPower));
-            telemetry.addData("Motors: ","Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
+            telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
         } else if (gamepad1.left_bumper && !gamepad1.right_bumper) {
             robot.leftMotor.setPower(RobotUtilities.maxNormalizePower(leftPower));
             robot.rightMotor.setPower(RobotUtilities.maxNormalizePower(rightPower));
-            telemetry.addData("Motors: ","Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
+            telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
         } else if (gamepad1.right_bumper && !gamepad1.left_bumper) {
-            robot.leftMotor.setPower(RobotUtilities.normalizePower(leftPower)*2/3);
-            robot.rightMotor.setPower(RobotUtilities.normalizePower(rightPower)*2/3);
-            telemetry.addData("Motors: ","Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
+            robot.leftMotor.setPower(RobotUtilities.normalizePower(leftPower) * 2 / 3);
+            robot.rightMotor.setPower(RobotUtilities.normalizePower(rightPower) * 2 / 3);
+            telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
         }
-
-
 
 
         if (gamepad2.right_trigger > 0) {
@@ -121,25 +119,25 @@ public class BlackTigersTeleOpNir extends OpMode {
         } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down) {
             robot.reloadingMotor.setPower(-ReloadingSpeed / 2);
             robot.collectionMotor.setPower(0);
-        } else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && gamepad2.dpad_down){
-            robot.ballMotorRight.setPower(-0.80);
-            robot.ballMotorLeft.setPower(-0.80);
-        }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && gamepad2.dpad_up && !gamepad2.dpad_down){
-            robot.ballMotorRight.setPower(0.80);
-            robot.ballMotorLeft.setPower(0.80);
-        }else {
+        }
+//         else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && gamepad2.dpad_down){
+//            robot.ballMotorRight.setPower(-0.80);
+//            robot.ballMotorLeft.setPower(-0.80);
+//        }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && gamepad2.dpad_up && !gamepad2.dpad_down){
+//            robot.ballMotorRight.setPower(0.80);
+//            robot.ballMotorLeft.setPower(0.80);
+        else {
             robot.collectionMotor.setPower(0);
             robot.reloadingMotor.setPower(0);
-            robot.ballMotorRight.setPower(0);
-            robot.ballMotorLeft.setPower(0);
+//            robot.ballMotorRight.setPower(0);
+//            robot.ballMotorLeft.setPower(0);
+        }
+
+        }
+
+
+        @Override
+        public void stop () {
         }
 
     }
-
-
-
-    @Override
-    public void stop() {
-    }
-
-}

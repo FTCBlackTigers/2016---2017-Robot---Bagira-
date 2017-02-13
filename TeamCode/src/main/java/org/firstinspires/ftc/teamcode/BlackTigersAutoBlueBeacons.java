@@ -50,17 +50,11 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
         RobotUtilities.gyroRotate(-40, robot, telemetry, this);
 
         boolean isBlueRight = beacon.getAnalysis().isRightBlue();
-        sleep(500);
+        sleep(1000);
         RobotUtilities.gyroRotate(85, robot, telemetry, this);
         sleep(200);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -60 ,10, this, robot, telemetry);
-//        if(!isBlueRight) {
-//            RobotUtilities.moveForward(RobotUtilities.normalSpeed, 23 ,10, this, robot, telemetry);
-//            sleep(700);
-//            RobotUtilities.moveForward(RobotUtilities.normalSpeed, -23 ,10, this, robot, telemetry);
-//        }
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 60 ,10, this, robot, telemetry);
-//        shooting 2 balls
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -46,10, this, robot, telemetry);
+        RobotUtilities.moveForward(0.35, 55 ,10, this, robot, telemetry);
 
         robot.shootingMotor.setPower(0.75);
 
@@ -72,13 +66,13 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
         robot.reloadingMotor.setPower(0);
 
         if(!isBlueRight) {
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed, -60 ,10, this, robot, telemetry);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed, -55 ,10, this, robot, telemetry);
             sleep(700);
             RobotUtilities.moveForward(RobotUtilities.normalSpeed, 60 ,10, this, robot, telemetry);
         }
 
         sleep(0500);
-        RobotUtilities.gyroRotate(-79, robot, telemetry, this);
+        RobotUtilities.gyroRotate(-75, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -120 ,10, this, robot, telemetry);
         isBlueRight = beacon.getAnalysis().isRightBlue();
         sleep(500);
