@@ -79,19 +79,28 @@ public class BlackTigersTeleOpNir extends OpMode {
         double rightPower = -gamepad1.right_stick_y;
 
 //        DbgLog.msg("Left Stick: " + leftPower + "; Right Stick: " + rightPower);
-        if ((!gamepad1.right_bumper && !gamepad1.left_bumper) || (gamepad1.left_bumper && gamepad1.right_bumper)) {
+        if ((!gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.dpad_up && !gamepad1.dpad_up) || (gamepad1.left_bumper && gamepad1.right_bumper && gamepad1.dpad_up && gamepad1.dpad_up)) {
             robot.leftMotor.setPower(RobotUtilities.normalizePower(leftPower));
             robot.rightMotor.setPower(RobotUtilities.normalizePower(rightPower));
             telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
-        } else if (gamepad1.left_bumper && !gamepad1.right_bumper) {
+        } else if (gamepad1.left_bumper && !gamepad1.right_bumper && !gamepad1.dpad_up && !gamepad1.dpad_up) {
             robot.leftMotor.setPower(RobotUtilities.maxNormalizePower(leftPower));
             robot.rightMotor.setPower(RobotUtilities.maxNormalizePower(rightPower));
             telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
-        } else if (gamepad1.right_bumper && !gamepad1.left_bumper) {
+        } else if (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.dpad_up && !gamepad1.dpad_up) {
             robot.leftMotor.setPower(RobotUtilities.normalizePower(leftPower) * 2 / 3);
             robot.rightMotor.setPower(RobotUtilities.normalizePower(rightPower) * 2 / 3);
             telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
+        }else if (!gamepad1.right_bumper && !gamepad1.left_bumper && gamepad1.dpad_up && !gamepad1.dpad_up) {
+            robot.leftMotor.setPower(0.75);
+            robot.rightMotor.setPower(0.75);
+            telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
+        }else if (!gamepad1.right_bumper && !gamepad1.left_bumper && gamepad1.dpad_up && !gamepad1.dpad_up) {
+            robot.leftMotor.setPower(-0.75);
+            robot.rightMotor.setPower(-0.75);
+            telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
         }
+
 
 
         if (gamepad2.right_trigger > 0) {

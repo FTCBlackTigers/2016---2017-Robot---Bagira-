@@ -9,7 +9,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
  */
 
 
-@Autonomous(name = "BlackTigersAutoRedShoot&ParkingFar", group = "BlackTigers Auto")
+@Autonomous(name = "Red-Shoot&ParkingFar", group = "BlackTigers Auto")
     public class BlackTigersAutoRedShootAndParkingFar extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
@@ -52,8 +52,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
 
         RobotUtilities.gyroRotate(130, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -140,10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(-
-                30, robot, telemetry, this);
+        RobotUtilities.gyroRotate(-30, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -30,10, this, robot, telemetry);
 
         while (opModeIsActive()) {

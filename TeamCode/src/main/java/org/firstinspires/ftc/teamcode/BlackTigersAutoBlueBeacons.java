@@ -10,7 +10,7 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
  */
 
 
-@Autonomous(name = "BlackTigersAutoBlueBeacons", group = "BlackTigers Auto")
+@Autonomous(name = "Blue-Beacons", group = "BlackTigers Auto")
     public class BlackTigersAutoBlueBeacons extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
@@ -45,15 +45,18 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
 
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -52,10, this, robot, telemetry);
         RobotUtilities.gyroRotate(40, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -90,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -85,10, this, robot, telemetry);
         sleep(200);
-        RobotUtilities.gyroRotate(-40, robot, telemetry, this);
+        RobotUtilities.gyroRotate(-45, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -15,10, this, robot, telemetry);
+
 
         boolean isBlueRight = beacon.getAnalysis().isRightBlue();
         sleep(1000);
-        RobotUtilities.gyroRotate(85, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, 5,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(82, robot, telemetry, this);
         sleep(200);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -46,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -47,10, this, robot, telemetry);
         RobotUtilities.moveForward(0.35, 55 ,10, this, robot, telemetry);
 
         robot.shootingMotor.setPower(0.75);
@@ -72,16 +75,17 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
         }
 
         sleep(0500);
-        RobotUtilities.gyroRotate(-75, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -120 ,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-82, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -115 ,10, this, robot, telemetry);
         isBlueRight = beacon.getAnalysis().isRightBlue();
         sleep(500);
-        RobotUtilities.gyroRotate(85, robot, telemetry, this);
+        RobotUtilities.gyroRotate(80, robot, telemetry, this);
         sleep(200);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -66 ,10, this, robot, telemetry);
         if(!isBlueRight) {
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed, 23 ,10, this, robot, telemetry);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed, 30 ,10, this, robot, telemetry);
             sleep(700);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed, -30, 10, this, robot, telemetry);
         }
 
         while (opModeIsActive()) {

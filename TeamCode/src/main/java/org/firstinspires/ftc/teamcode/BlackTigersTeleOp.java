@@ -121,7 +121,7 @@ public class BlackTigersTeleOp extends OpMode {
             robot.reloadingMotor.setPower(ReloadingSpeed);
             isCollecting = false;
         } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && gamepad2.b) {
-            robot.reloadingMotor.setPower(-ReloadingSpeed / 2);
+            robot.reloadingMotor.setPower(-ReloadingSpeed/2);
             robot.collectionMotor.setPower(0);
         } else {
             robot.collectionMotor.setPower(0);

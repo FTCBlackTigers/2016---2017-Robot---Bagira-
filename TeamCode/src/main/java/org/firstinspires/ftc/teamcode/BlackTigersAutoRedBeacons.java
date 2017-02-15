@@ -9,7 +9,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
  */
 
 
-@Autonomous(name = "BlackTigersAutoRedBeacons", group = "BlackTigers Auto")
+@Autonomous(name = "Red-Beacons", group = "BlackTigers Auto")
     public class BlackTigersAutoRedBeacons extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
@@ -44,9 +44,9 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
 
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 52,10, this, robot, telemetry);
         RobotUtilities.gyroRotate(-25, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed*0.5, 95,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed*0.5, 90,10, this, robot, telemetry);
         sleep(200);
-        RobotUtilities.gyroRotate(35, robot, telemetry, this);
+        RobotUtilities.gyroRotate(30, robot, telemetry, this);
 
         boolean isRedRight = false;
         sleep(500);
@@ -61,7 +61,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 60 ,10, this, robot, telemetry);
 
         sleep(0500);
-        RobotUtilities.gyroRotate(85, robot, telemetry, this);
+        RobotUtilities.gyroRotate(80, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -110 ,10, this, robot, telemetry);
 
         sleep(500);

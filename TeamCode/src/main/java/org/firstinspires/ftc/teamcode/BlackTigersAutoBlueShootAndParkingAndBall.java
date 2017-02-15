@@ -9,7 +9,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
  */
 
 
-@Autonomous(name = "BlackTigersAutoBlueShoot&Parking%Ball", group = "BlackTigers Auto")
+@Autonomous(name = "Blue-Shoot&Parking%Ball", group = "BlackTigers Auto")
     public class BlackTigersAutoBlueShootAndParkingAndBall extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
