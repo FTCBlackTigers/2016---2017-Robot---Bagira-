@@ -3,6 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.lasarobotics.vision.ftc.resq.Beacon;
 import org.lasarobotics.vision.opmode.LinearVisionOpMode;
 import org.lasarobotics.vision.opmode.VisionOpMode;
 /*
@@ -49,8 +50,7 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
         sleep(200);
         RobotUtilities.gyroRotate(-45, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -15,10, this, robot, telemetry);
-
-
+        
         boolean isBlueRight = beacon.getAnalysis().isRightBlue();
         sleep(1000);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, 5,10, this, robot, telemetry);
