@@ -9,8 +9,8 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
  */
 
 
-@Autonomous(name = "Red-Shoot&Parking&Ball", group = "BlackTigers Auto")
-    public class BlackTigersAutoREDShootAndParkingAndBall extends LinearVisionOpMode {
+@Autonomous(name = "-Blue-Shoot&Parking", group = "BlackTigers Auto")
+    public class AutoBlueShootAndParking extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -38,7 +38,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         waitForStart();
         robot.shootingMotor.setPower(1);
         sleep(1500);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, 30,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 35,10, this, robot, telemetry);
         robot.reloadingMotor.setPower(-0.95);
         sleep(800);
         robot.reloadingMotor.setPower(0);
@@ -47,10 +47,8 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         sleep(1300);
         robot.shootingMotor.setPower(0);
         robot.reloadingMotor.setPower(0);
-        RobotUtilities.gyroRotate(-5, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 83,10, this, robot, telemetry);
-        sleep(1000);
-        RobotUtilities.gyroRotate(-300, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 35,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-60, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -95,10, this, robot, telemetry);
 
 

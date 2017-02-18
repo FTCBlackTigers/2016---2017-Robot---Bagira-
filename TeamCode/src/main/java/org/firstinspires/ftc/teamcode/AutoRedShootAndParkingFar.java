@@ -9,8 +9,8 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
  */
 
 
-@Autonomous(name = "BlueShoot&Parking-Far", group = "BlackTigers Auto")
-    public class BlackTigersAutoBlueShootAndParkingFar extends LinearVisionOpMode {
+@Autonomous(name = "Red-Shoot&ParkingFar", group = "BlackTigers Auto")
+    public class AutoRedShootAndParkingFar extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -37,9 +37,9 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
 
         waitForStart();
         robot.shootingMotor.setPower(0.75);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 18,10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(46, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 55,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 20,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-39, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 50,10, this, robot, telemetry);
         sleep(500);
         robot.reloadingMotor.setPower(-0.75);
         sleep(800);
@@ -50,10 +50,10 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         robot.shootingMotor.setPower(0);
         robot.reloadingMotor.setPower(0);
 
-        RobotUtilities.gyroRotate(-130, robot, telemetry, this);
+        RobotUtilities.gyroRotate(130, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -140,10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(38, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -33,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-30, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -30,10, this, robot, telemetry);
 
         while (opModeIsActive()) {
             telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
