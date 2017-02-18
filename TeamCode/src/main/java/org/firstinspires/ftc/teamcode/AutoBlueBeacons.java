@@ -45,16 +45,16 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
         waitForStart();
 
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -52,10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(40, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -85,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(37, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -80,10, this, robot, telemetry);
         sleep(200);
         RobotUtilities.gyroRotate(-45, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -15,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, 15,10, this, robot, telemetry);
         
         boolean isBlueRight = beacon.getAnalysis().isRightBlue();
         sleep(1000);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, 5,10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(82, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -8,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(95, robot, telemetry, this);
         sleep(200);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -47,10, this, robot, telemetry);
         RobotUtilities.moveForward(0.35, 55 ,10, this, robot, telemetry);

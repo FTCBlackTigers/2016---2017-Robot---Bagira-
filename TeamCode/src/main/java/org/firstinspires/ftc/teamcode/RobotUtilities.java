@@ -29,7 +29,7 @@ public class RobotUtilities {
     static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_CM * 3.1415);
     private static ElapsedTime runtime = new ElapsedTime();
-    final static double normalSpeed = 0.5;
+    final static double normalSpeed = 0.95;
     static final double ROTATE_SPEED = 0.9;
 
     public static double normalizePower(double power) {
