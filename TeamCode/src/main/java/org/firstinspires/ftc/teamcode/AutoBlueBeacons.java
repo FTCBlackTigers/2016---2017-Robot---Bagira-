@@ -48,16 +48,16 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
         RobotUtilities.gyroRotate(37, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -80,10, this, robot, telemetry);
         sleep(200);
-        RobotUtilities.gyroRotate(-45, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, 15,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-42, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -15,10, this, robot, telemetry);
         
         boolean isBlueRight = beacon.getAnalysis().isRightBlue();
         sleep(1000);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -8,10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(95, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -0,10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(100, robot, telemetry, this);
         sleep(200);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -47,10, this, robot, telemetry);
-        RobotUtilities.moveForward(0.35, 55 ,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -68,10, this, robot, telemetry);
+        RobotUtilities.moveForward(0.35, 35,10, this, robot, telemetry);
 
         robot.shootingMotor.setPower(0.75);
 
@@ -69,7 +69,7 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
         robot.reloadingMotor.setPower(0);
 
         if(!isBlueRight) {
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed, -55 ,10, this, robot, telemetry);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed, -60 ,10, this, robot, telemetry);
             sleep(700);
             RobotUtilities.moveForward(RobotUtilities.normalSpeed, 60 ,10, this, robot, telemetry);
         }
@@ -82,9 +82,9 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
         sleep(500);
         RobotUtilities.gyroRotate(80, robot, telemetry, this);
         sleep(200);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -66 ,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -67 ,10, this, robot, telemetry);
         if(!isBlueRight) {
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed, 30 ,10, this, robot, telemetry);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed, 33 ,10, this, robot, telemetry);
             sleep(700);
             RobotUtilities.moveForward(RobotUtilities.normalSpeed, -30, 10, this, robot, telemetry);
         }
