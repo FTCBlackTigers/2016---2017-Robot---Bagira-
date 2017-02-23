@@ -30,7 +30,7 @@ public class RobotUtilities {
             (WHEEL_DIAMETER_CM * 3.1415);
     private static ElapsedTime runtime = new ElapsedTime();
     final static double normalSpeed = 0.95;
-    static final double ROTATE_SPEED = 0.9;
+    static final double ROTATE_SPEED = 0.7;
 
     public static double normalizePower(double power) {
         return normalSpeed * 0.95 * Range.clip(Math.pow(power, 7), -1, 1);
@@ -75,7 +75,7 @@ public class RobotUtilities {
                     (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())) {
                 int direction = robot.gyro.getHeading() - startDirection;
               double percentage = (double) (ticksToDrive - (newLeftTarget - robot.leftMotor.getCurrentPosition())) / (double) ticksToDrive;
-                if (percentage > 1) {
+                if (percentage > 2) {
                     break;
                 }
 //                if (direction > 0) {
@@ -135,7 +135,7 @@ public class RobotUtilities {
         //degrees=-degrees; // gyro is backwards
         int startPosition = robot.gyro.getHeading();
         int targetPosition = startPosition + degrees;
-        if (targetPosition > 360) {
+        if (targetPosition >= 360) {
             targetPosition -= 360;
         } else if (targetPosition <= 0) {
             targetPosition += 360;
@@ -182,7 +182,7 @@ public class RobotUtilities {
     public static void cameraSetup (LinearVisionOpMode opMode){
         opMode.setCamera(Cameras.SECONDARY);
         opMode.setFrameSize(new Size(1080, 720));
-        opMode.beacon.setAnalysisMethod(Beacon.AnalysisMethod.REALTIME);
+        opMode.beacon.setAnalysisMethod(Beacon.AnalysisMethod.FAST);
         opMode.beacon.setColorToleranceRed(0); //change
         opMode.beacon.setColorToleranceBlue(0); //change
         opMode.rotation.setIsUsingSecondaryCamera(true);
