@@ -23,7 +23,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.shootingMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        RobotUtilities.calibrategyro(telemetry , robot ,this);
+        RobotUtilities.calibrategyro(telemetry, robot, this);
         enableExtension(Extensions.BEACON);
         enableExtension(Extensions.ROTATION);
         enableExtension(Extensions.CAMERA_CONTROL);
@@ -42,37 +42,49 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
 
         waitForStart();
 
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 52,10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(-25, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed*0.5, 90,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 52, 10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-37, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed * 0.5, 90, 10, this, robot, telemetry);
         sleep(200);
-        RobotUtilities.gyroRotate(30, robot, telemetry, this);
-
+        RobotUtilities.gyroRotate(37, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 10, 10, this, robot, telemetry);
+        sleep(500);
+        while (!beacon.getAnalysis().isRightKnown() || !beacon.getAnalysis().isLeftKnown()) {}
         boolean isRedRight = beacon.getAnalysis().isRightRed();
-        sleep(500);
-        RobotUtilities.gyroRotate(80, robot, telemetry, this);
         sleep(200);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -70 ,10, this, robot, telemetry);
-        if(!isRedRight) {
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed, 20 ,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -4, 10, this, robot, telemetry);
+        sleep(500);
+        RobotUtilities.gyroRotate(84, robot, telemetry, this);
+        robot.shootingMotor.setPower(0.75);
+        sleep(200);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 3, -70, 10, this, robot, telemetry);
+        RobotUtilities.moveForward(0.35, 37, 10, this, robot, telemetry);
+        sleep(1500);
+        robot.reloadingMotor.setPower(-0.75);
+        sleep(2500);
+        robot.shootingMotor.setPower(0);
+        robot.reloadingMotor.setPower(0);
+        if (!isRedRight) {
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -58, 10, this, robot, telemetry);
             sleep(700);
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed, -23 ,10, this, robot, telemetry);
-        }
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 60 ,10, this, robot, telemetry);
-
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 35, 10, this, robot, telemetry);}
         sleep(0500);
-        RobotUtilities.gyroRotate(80, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -110 ,10, this, robot, telemetry);
-        isRedRight = beacon.getAnalysis().isRightRed();
+        RobotUtilities.gyroRotate(-89, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 1.5, 120, 10, this, robot, telemetry);
         sleep(500);
-        RobotUtilities.gyroRotate(-85, robot, telemetry, this);
+        isRedRight = beacon.getAnalysis().isRightRed();
         sleep(200);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -60 ,10, this, robot, telemetry);
-        if(!isRedRight) {
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed, 20 ,10, this, robot, telemetry);
-            sleep(700);
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed, -23 ,10, this, robot, telemetry);
-        }
+        if (isRedRight) {
+            RobotUtilities.gyroRotate(85, robot, telemetry, this);
+            sleep(200);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -60, 10, this, robot, telemetry);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 15, 10, this, robot, telemetry);
+        }else {
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -17, 10, this, robot, telemetry);
+            RobotUtilities.gyroRotate(85, robot, telemetry, this);
+            sleep(200);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -60, 10, this, robot, telemetry);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 15, 10, this, robot, telemetry);}
 
         while (opModeIsActive()) {
             telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());

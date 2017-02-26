@@ -53,7 +53,8 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 63,10, this, robot, telemetry);
         sleep(9000);
         RobotUtilities.gyroRotate(-95, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -150,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -150,10, this, robot, telemetry);
+
 
         while (opModeIsActive()) {
             telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());

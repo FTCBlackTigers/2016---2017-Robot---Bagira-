@@ -76,18 +76,18 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
         }
         sleep(500);
         RobotUtilities.gyroRotate(-85, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -109 ,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -103,10, this, robot, telemetry);
         sleep(500);
         isBlueRight = beacon.getAnalysis().isRightBlue();
         telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
         telemetry.addData("Beacon Confidence", beacon.getAnalysis().getConfidenceString());
-//        if(!isBlueRight) {
-//            RobotUtilities.moveForward(RobotUtilities.normalSpeed,-15,5,this,robot,telemetry);
-//        }
-//        RobotUtilities.gyroRotate(85, robot, telemetry, this);
-//        sleep(200);
-//        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -66 ,10, this, robot, telemetry);
-//        RobotUtilities.moveForward(RobotUtilities.normalSpeed/3, 5 ,10, this, robot, telemetry);
+        if(!isBlueRight) {
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed,-15,5,this,robot,telemetry);
+        }
+       RobotUtilities.gyroRotate(85, robot, telemetry, this);
+        sleep(200);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -66 ,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed/3, 5 ,10, this, robot, telemetry);
 
 
         while (opModeIsActive()) {

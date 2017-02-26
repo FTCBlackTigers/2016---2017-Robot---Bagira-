@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.widget.Switch;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -32,12 +36,13 @@ public class RobotUtilities {
     final static double normalSpeed = 0.95;
     static final double ROTATE_SPEED = 0.7;
 
+
     public static double normalizePower(double power) {
         return normalSpeed * 0.95 * Range.clip(Math.pow(power, 7), -1, 1);
     }
 
     public static double maxNormalizePower(double power) {
-        return 0.9 * Range.clip(Math.pow(power, 7), -1, 1);
+        return 0.45 * Range.clip(Math.pow(power, 7), -1, 1);
     }
 
     public static void moveForward(double speed,
