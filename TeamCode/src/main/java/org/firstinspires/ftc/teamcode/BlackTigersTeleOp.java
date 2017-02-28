@@ -127,15 +127,15 @@ public class BlackTigersTeleOp extends OpMode {
             robot.reloadingMotor.setPower(-ReloadingSpeed/2);
             robot.collectionMotor.setPower(0);
         }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && gamepad2.dpad_down && !gamepad2.dpad_left && !gamepad2.dpad_right){
-            robot.ballMotorRight.setPower(-0.70);
-            robot.ballMotorLeft.setPower(-0.70);
+            robot.ballMotorRight.setPower(0.70);
+            robot.ballMotorLeft.setPower(0.70);
        }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && gamepad2.dpad_up && !gamepad2.dpad_down && !gamepad2.dpad_left && !gamepad2.dpad_right) {
-            robot.ballMotorRight.setPower(1);
-            robot.ballMotorLeft.setPower(1);
+            robot.ballMotorRight.setPower(-1);
+            robot.ballMotorLeft.setPower(-1);
         }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down && gamepad2.dpad_left && !gamepad2.dpad_right) {
-            robot.ballMotorLeft.setPower(1);
+            robot.ballMotorLeft.setPower(-1);
         }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down && !gamepad2.dpad_left && gamepad2.dpad_right) {
-            robot.ballMotorRight.setPower(1);
+            robot.ballMotorRight.setPower(-1);
         }else {
                 robot.collectionMotor.setPower(0);
                 robot.reloadingMotor.setPower(0);
