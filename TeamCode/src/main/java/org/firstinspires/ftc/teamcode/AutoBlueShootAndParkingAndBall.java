@@ -9,7 +9,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
  */
 
 
-@Autonomous(name = "Blue-Shoot&Parking%Ball", group = "BlackTigers Auto")
+@Autonomous(name = "Blue-Shoot&Parking&Ball", group = "BlackTigers Auto")
     public class AutoBlueShootAndParkingAndBall extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
@@ -40,7 +40,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         sleep(1500);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 35,10, this, robot, telemetry);
         robot.reloadingMotor.setPower(-0.95);
-        sleep(800);
+        sleep(600);
         robot.reloadingMotor.setPower(0);
         sleep(4000);
         robot.reloadingMotor.setPower(-0.95);

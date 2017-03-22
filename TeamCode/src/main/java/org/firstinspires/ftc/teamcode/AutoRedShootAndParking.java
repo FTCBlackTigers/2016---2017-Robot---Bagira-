@@ -39,7 +39,6 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         robot.shootingMotor.setPower(1);
         sleep(1500);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, 30,10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(15, robot, telemetry, this);
         robot.reloadingMotor.setPower(-0.95);
         sleep(800);
         robot.reloadingMotor.setPower(0);

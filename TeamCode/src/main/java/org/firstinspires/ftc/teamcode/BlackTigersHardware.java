@@ -21,11 +21,8 @@ public class BlackTigersHardware
 
 
     HardwareMap hwMap           =  null;
-    private ElapsedTime period  = new ElapsedTime();
 
-    public BlackTigersHardware(){
 
-    }
 
 
     public void init(HardwareMap ahwMap) {
@@ -47,7 +44,7 @@ public class BlackTigersHardware
         collectionMotor.setDirection(DcMotor.Direction.REVERSE);
         reloadingMotor.setDirection(DcMotor.Direction.REVERSE);
         shootingMotor.setDirection(DcMotor.Direction.FORWARD);
-        ballMotorRight.setDirection(DcMotor.Direction.FORWARD);
+        ballMotorRight.setDirection(DcMotor.Direction.REVERSE);
         ballMotorLeft.setDirection(DcMotor.Direction.REVERSE);
 
         shootingMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);

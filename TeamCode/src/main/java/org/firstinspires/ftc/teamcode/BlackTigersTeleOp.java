@@ -47,10 +47,10 @@ public class BlackTigersTeleOp extends OpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     boolean isReloading = false;
-    boolean isCollecting = false;
+    boolean isCollecting = false ;
     boolean isShootingFinishedSpeeding = false;
     boolean isShootingFinishedSlowing = true;
-    final double ReloadingSpeed = -0.95;
+    final double ReloadingSpeed = -0.75;
     final double CollectionSpeed = 1;
 
     @Override
@@ -106,6 +106,14 @@ public class BlackTigersTeleOp extends OpMode {
         } else {
             robot.shootingMotor.setPower(0);
         }
+        if (gamepad2.left_trigger > 0) {
+            robot.ballMotorLeft.setPower(-1);
+            robot.ballMotorRight.setPower(-1);
+        } else if(!gamepad2.dpad_down && !gamepad2.dpad_up) {
+            robot.ballMotorLeft.setPower(0);
+            robot.ballMotorRight.setPower(0);
+        }
+
 
         if (gamepad2.left_bumper && gamepad2.a && gamepad2.right_bumper && gamepad2.x && gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down && !gamepad2.dpad_left && !gamepad2.dpad_right) {
             robot.reloadingMotor.setPower(0);
@@ -132,16 +140,14 @@ public class BlackTigersTeleOp extends OpMode {
        }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && gamepad2.dpad_up && !gamepad2.dpad_down && !gamepad2.dpad_left && !gamepad2.dpad_right) {
             robot.ballMotorRight.setPower(-1);
             robot.ballMotorLeft.setPower(-1);
-        }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down && gamepad2.dpad_left && !gamepad2.dpad_right) {
-            robot.ballMotorLeft.setPower(-1);
-        }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down && !gamepad2.dpad_left && gamepad2.dpad_right) {
-            robot.ballMotorRight.setPower(-1);
         }else {
-                robot.collectionMotor.setPower(0);
-                robot.reloadingMotor.setPower(0);
+            robot.collectionMotor.setPower(0);
+            robot.reloadingMotor.setPower(0);
+            if(gamepad2.left_trigger == 0) {
                 robot.ballMotorRight.setPower(0);
                 robot.ballMotorLeft.setPower(0);
             }
+        }
 
 
         telemetry.addData("shooting speed", "%f", robot.shootingMotor.getPower());
