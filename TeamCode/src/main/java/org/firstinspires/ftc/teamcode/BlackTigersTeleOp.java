@@ -43,13 +43,10 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name = "Black Tiger Teleop", group = "BlackTigers")
 // @Autonomous(...) is the other common choice
 public class BlackTigersTeleOp extends OpMode {
+    //    we define basic configuration
     private ElapsedTime runtime = new ElapsedTime();
-
     BlackTigersHardware robot = new BlackTigersHardware();
-    boolean isReloading = false;
-    boolean isCollecting = false ;
-    boolean isShootingFinishedSpeeding = false;
-    boolean isShootingFinishedSlowing = true;
+    boolean isCollecting = false;
     final double ReloadingSpeed = -0.75;
     final double CollectionSpeed = 1;
 
@@ -76,7 +73,8 @@ public class BlackTigersTeleOp extends OpMode {
         double leftPower = -gamepad1.left_stick_y;
         double rightPower = -gamepad1.right_stick_y;
         DbgLog.msg("Left Stick: " + leftPower + "; Right Stick: " + rightPower);
-
+// we give our driver the option to move fast slow in the normal speed and control our robot moving
+// buy clicking on a button
         if ((!gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.dpad_up && !gamepad1.dpad_down) || (gamepad1.left_bumper && gamepad1.right_bumper && gamepad1.dpad_up && gamepad1.dpad_down)) {
             robot.leftMotor.setPower(RobotUtilities.normalizePower(leftPower));
             robot.rightMotor.setPower(RobotUtilities.normalizePower(rightPower));
@@ -86,14 +84,14 @@ public class BlackTigersTeleOp extends OpMode {
             robot.rightMotor.setPower(RobotUtilities.maxNormalizePower(rightPower));
             telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
         } else if (!gamepad1.right_bumper && gamepad1.left_bumper && !gamepad1.dpad_up && !gamepad1.dpad_down) {
-            robot.leftMotor.setPower(RobotUtilities.normalizePower(leftPower) /5);
-            robot.rightMotor.setPower(RobotUtilities.normalizePower(rightPower) /5);
+            robot.leftMotor.setPower(RobotUtilities.normalizePower(leftPower) / 5);
+            robot.rightMotor.setPower(RobotUtilities.normalizePower(rightPower) / 5);
             telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
-        }else if (!gamepad1.right_bumper && !gamepad1.left_bumper && gamepad1.dpad_up && !gamepad1.dpad_down) {
+        } else if (!gamepad1.right_bumper && !gamepad1.left_bumper && gamepad1.dpad_up && !gamepad1.dpad_down) {
             robot.leftMotor.setPower(0.75);
             robot.rightMotor.setPower(0.75);
             telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
-        }else if (!gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.dpad_up && gamepad1.dpad_down) {
+        } else if (!gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.dpad_up && gamepad1.dpad_down) {
             robot.leftMotor.setPower(-0.75);
             robot.rightMotor.setPower(-0.75);
             telemetry.addData("Motors: ", "Left Stick: " + robot.leftMotor.getPower() + "; Right Stick: " + robot.rightMotor.getPower());
@@ -101,6 +99,8 @@ public class BlackTigersTeleOp extends OpMode {
 
 
         //GAMEPAD 2
+        // The operator can activate the shooting motor, The collecting motor, The cap ball motors
+        // and the reloading motor.
         if (gamepad2.right_trigger > 0) {
             robot.shootingMotor.setPower(1);
         } else {
@@ -109,7 +109,7 @@ public class BlackTigersTeleOp extends OpMode {
         if (gamepad2.left_trigger > 0) {
             robot.ballMotorLeft.setPower(-1);
             robot.ballMotorRight.setPower(-1);
-        } else if(!gamepad2.dpad_down && !gamepad2.dpad_up) {
+        } else if (!gamepad2.dpad_down && !gamepad2.dpad_up) {
             robot.ballMotorLeft.setPower(0);
             robot.ballMotorRight.setPower(0);
         }
@@ -132,18 +132,18 @@ public class BlackTigersTeleOp extends OpMode {
             robot.reloadingMotor.setPower(ReloadingSpeed);
             isCollecting = false;
         } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && gamepad2.b && !gamepad2.dpad_up && !gamepad2.dpad_down && !gamepad2.dpad_left && !gamepad2.dpad_right) {
-            robot.reloadingMotor.setPower(-ReloadingSpeed/2);
+            robot.reloadingMotor.setPower(-ReloadingSpeed / 2);
             robot.collectionMotor.setPower(0);
-        }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && gamepad2.dpad_down && !gamepad2.dpad_left && !gamepad2.dpad_right){
+        } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && !gamepad2.dpad_up && gamepad2.dpad_down && !gamepad2.dpad_left && !gamepad2.dpad_right) {
             robot.ballMotorRight.setPower(0.70);
             robot.ballMotorLeft.setPower(0.70);
-       }else  if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && gamepad2.dpad_up && !gamepad2.dpad_down && !gamepad2.dpad_left && !gamepad2.dpad_right) {
+        } else if (!gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper && !gamepad2.x && !gamepad2.b && gamepad2.dpad_up && !gamepad2.dpad_down && !gamepad2.dpad_left && !gamepad2.dpad_right) {
             robot.ballMotorRight.setPower(-1);
             robot.ballMotorLeft.setPower(-1);
-        }else {
+        } else {
             robot.collectionMotor.setPower(0);
             robot.reloadingMotor.setPower(0);
-            if(gamepad2.left_trigger == 0) {
+            if (gamepad2.left_trigger == 0) {
                 robot.ballMotorRight.setPower(0);
                 robot.ballMotorLeft.setPower(0);
             }
@@ -151,7 +151,8 @@ public class BlackTigersTeleOp extends OpMode {
 
 
         telemetry.addData("shooting speed", "%f", robot.shootingMotor.getPower());
-        telemetry.addData("Path2", "Running at %7d :%7d",robot.leftMotor.getCurrentPosition(),robot.rightMotor.getCurrentPosition());
+        telemetry.addData("Path2", "Running at %7d :%7d", robot.leftMotor.getCurrentPosition()
+                , robot.rightMotor.getCurrentPosition());
         telemetry.addData("gyro", robot.gyro.getHeading());
         telemetry.update();
 
