@@ -34,17 +34,20 @@ public class RobotUtilities {
     final static double normalSpeed = 0.95;
     static final double ROTATE_SPEED = 0.7;
 
-// Here we convert encoder ticks to centimeters.
+    // Here we convert encoder ticks to centimeters.
     static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_CM * 3.1415);
-//We use this method in our teleop program to help our driver to control the driving better
+
+    //We use this method in our teleop program to help our driver to control the driving better
     public static double normalizePower(double power) {
         return normalSpeed * 0.95 * Range.clip(Math.pow(power, 7), -1, 1);
     }
+
     public static double maxNormalizePower(double power) {
         return 0.45 * Range.clip(Math.pow(power, 7), -1, 1);
     }
-//We use this method in the Autonomous mods. We give it speed (normally we use our normalspeed=0.95), Centimeters to drive
+
+    //We use this method in the Autonomous mods. We give it speed (normally we use our normalspeed=0.95), Centimeters to drive
 //    (we convert the centimeters to encoder ticks with a calculate , lines 40-41) and timeout (this is the maximum time that
 //    this block will run. after this time we will move to the next block).
     public static void moveForward(double speed,
@@ -113,8 +116,7 @@ public class RobotUtilities {
     }
 
 
-
-//We use a gyro sensor to make our robot rotates.
+    //We use a gyro sensor to make our robot rotates.
     public static void gyroRotate(int degrees, BlackTigersHardware robot, Telemetry telemetry, LinearVisionOpMode opMode) {
         int startPosition = robot.gyro.getHeading();
 //        We find our target position
@@ -154,7 +156,8 @@ public class RobotUtilities {
         robot.leftMotor.setPower(0);
         robot.rightMotor.setPower(0);
     }
-// At the start of our every Autonomous program we calebrate our gyro
+
+    // At the start of our every Autonomous program we calebrate our gyro
     static public void calibrategyro(Telemetry telemetry, BlackTigersHardware robot, LinearVisionOpMode opMode) {
         telemetry.addData(">", "Calibrating Gyro");
         telemetry.update();
@@ -165,13 +168,14 @@ public class RobotUtilities {
         telemetry.addData(">", "Finished");
         telemetry.update();
     }
-//when we use our phones camera we need to config or camera settings
+
+    //when we use our phones camera we need to config or camera settings
     public static void cameraSetup(LinearVisionOpMode opMode) {
         opMode.setCamera(Cameras.SECONDARY);
         opMode.setFrameSize(new Size(1080, 720));
         opMode.beacon.setAnalysisMethod(Beacon.AnalysisMethod.FAST);
-        opMode.beacon.setColorToleranceRed(0); //change
-        opMode.beacon.setColorToleranceBlue(0); //change
+        opMode.beacon.setColorToleranceRed(0);
+        opMode.beacon.setColorToleranceBlue(0);
         opMode.rotation.setIsUsingSecondaryCamera(true);
         opMode.rotation.setActivityOrientationFixed(ScreenOrientation.PORTRAIT);
         opMode.cameraControl.setColorTemperature(CameraControlExtension.ColorTemperature.AUTO);
