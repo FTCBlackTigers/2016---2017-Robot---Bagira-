@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -10,7 +11,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
 
 
 @Autonomous(name = "Red-Beacons", group = "BlackTigers Auto")
-    public class AutoRedBeacons extends LinearVisionOpMode {
+public class AutoRedBeacons extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -55,12 +56,13 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 10, 10, this, robot, telemetry);
         sleep(500);
         // Read what color is the beacon
-        while (!beacon.getAnalysis().isRightKnown() || !beacon.getAnalysis().isLeftKnown()) {}
+        while (!beacon.getAnalysis().isRightKnown() || !beacon.getAnalysis().isLeftKnown()) {
+        }
         boolean isRedRight = beacon.getAnalysis().isRightRed();
         telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
         telemetry.addData("Beacon Confidence", beacon.getAnalysis().getConfidenceString());
         sleep(200);
-//        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -4, 10, this, robot, telemetry);
+        //RobotUtilities.moveForward(RobotUtilities.normalSpeed, -4, 10, this, robot, telemetry);
         sleep(500);
         // move the robot to a position to press the beacon
         RobotUtilities.gyroRotate(84, robot, telemetry, this);
@@ -79,7 +81,8 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         if (!isRedRight) {
             RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -53, 10, this, robot, telemetry);
             sleep(700);
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 35, 10, this, robot, telemetry);}
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 35, 10, this, robot, telemetry);
+        }
         sleep(0500);
         //Driving towards the 2nd Beacon
         RobotUtilities.gyroRotate(-90, robot, telemetry, this);
@@ -92,16 +95,17 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         sleep(200);
         // if the beacon is not in the right color, press it again
         if (isRedRight) {
-             RobotUtilities.gyroRotate(90, robot, telemetry, this);
+            RobotUtilities.gyroRotate(90, robot, telemetry, this);
             sleep(200);
             RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -60, 10, this, robot, telemetry);
             RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 15, 10, this, robot, telemetry);
-        }else {
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -17, 10, this, robot, telemetry);
+        } else {
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -17, 10, this, robot, telemetry);
             RobotUtilities.gyroRotate(85, robot, telemetry, this);
             sleep(200);
             RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -50, 10, this, robot, telemetry);
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 15, 10, this, robot, telemetry);}
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 15, 10, this, robot, telemetry);
+        }
 
         while (opModeIsActive()) {
             telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());

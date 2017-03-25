@@ -23,7 +23,7 @@ public class BlackTigersHardware {
 
         hwMap = ahwMap;
 
-// we set their names
+        // we set their names
         leftMotor = hwMap.dcMotor.get("left_drive");
         rightMotor = hwMap.dcMotor.get("right_drive");
         collectionMotor = hwMap.dcMotor.get("collection_motor");
@@ -41,8 +41,8 @@ public class BlackTigersHardware {
         ballMotorRight.setDirection(DcMotor.Direction.REVERSE);
         ballMotorLeft.setDirection(DcMotor.Direction.REVERSE);
 
-//      we use the ZeroPowerBehavior.FLOAT so that the motor will decelerate slowly and wont break
-// because of the high speed.
+        //we use the ZeroPowerBehavior.FLOAT so that the motor will decelerate slowly and wont break
+        // because of the high speed.
         shootingMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -50,7 +50,7 @@ public class BlackTigersHardware {
         reloadingMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ballMotorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ballMotorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-// we set the basic power to 0
+        // we set the basic power to 0
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         collectionMotor.setPower(0);

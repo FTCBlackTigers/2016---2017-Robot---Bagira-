@@ -48,19 +48,18 @@ public class RobotUtilities {
     }
 
     //We use this method in the Autonomous mods. We give it speed (normally we use our normalspeed=0.95), Centimeters to drive
-//    (we convert the centimeters to encoder ticks with a calculate , lines 40-41) and timeout (this is the maximum time that
-//    this block will run. after this time we will move to the next block).
+    //(we convert the centimeters to encoder ticks with a calculate , lines 40-41) and timeout (this is the maximum time that
+    //this block will run. after this time we will move to the next block).
     public static void moveForward(double speed,
                                    double cmToDrive,
                                    double timeoutS, LinearVisionOpMode opMode, BlackTigersHardware robot, Telemetry telemetry) {
         int newLeftTarget;
         int newRightTarget;
         // Ensure that the opmode is still active
-//        We reset our encoders
+        //We reset our encoders
         if (opMode.opModeIsActive()) {
             robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
 
             // Determine new target position, and pass to motor controller
             int ticksToDrive = (int) (cmToDrive * COUNTS_PER_CM);
@@ -94,7 +93,7 @@ public class RobotUtilities {
                 robot.leftMotor.setPower(power);
                 robot.rightMotor.setPower(power);
                 // Display it for the driver.
-//                write a telemetry
+                //write a telemetry
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         robot.leftMotor.getCurrentPosition(),
@@ -103,7 +102,7 @@ public class RobotUtilities {
                 telemetry.addData("Power", "left: %f, right: %f", robot.leftMotor.getPower(), robot.rightMotor.getPower());
                 telemetry.update();
             }
-// After the robot move to his new position we stop our motors
+                // After the robot move to his new position we stop our motors
             robot.leftMotor.setPower(0);
             robot.rightMotor.setPower(0);
 
@@ -116,20 +115,20 @@ public class RobotUtilities {
     }
 
 
-    //We use a gyro sensor to make our robot rotates.
+            //We use a gyro sensor to make our robot rotates.
     public static void gyroRotate(int degrees, BlackTigersHardware robot, Telemetry telemetry, LinearVisionOpMode opMode) {
         int startPosition = robot.gyro.getHeading();
-//        We find our target position
+        //We find our target position
         int targetPosition = startPosition + degrees;
-//      Here we find if our target position is more then 360 and if it more than 360 we substract 360.
+        //Here we find if our target position is more then 360 and if it more than 360 we substract 360.
         if (targetPosition >= 360) {
             targetPosition -= 360;
         } else if (targetPosition <= 0) {
             targetPosition += 360;
         }
-//        We make our rotate until we are 2 degrees away from aur final position because we are terning
-//        in high speed and in that way we prevent deviation of our robot.
-//        Also we decelerate to be more precise with the gyro
+        //We make our rotate until we are 2 degrees away from aur final position because we are terning
+        //in high speed and in that way we prevent deviation of our robot.
+        //Also we decelerate to be more precise with the gyro
         while (opMode.opModeIsActive() && Math.abs(targetPosition - robot.gyro.getHeading()) >= 2) {
             if (degrees > 0) {
                 if (Math.abs((double) (targetPosition - robot.gyro.getHeading()) / degrees) < 0.25) {

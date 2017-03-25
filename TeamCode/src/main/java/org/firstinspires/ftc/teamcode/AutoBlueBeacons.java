@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,7 +13,7 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
 
 
 @Autonomous(name = "Blue-Beacons", group = "BlackTigers Auto")
-    public class AutoBlueBeacons extends LinearVisionOpMode {
+public class AutoBlueBeacons extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();

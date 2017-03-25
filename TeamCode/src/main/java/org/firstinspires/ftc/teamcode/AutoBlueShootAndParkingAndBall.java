@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -10,7 +11,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
 
 
 @Autonomous(name = "Blue-Shoot&Parking&Ball", group = "BlackTigers Auto")
-    public class AutoBlueShootAndParkingAndBall extends LinearVisionOpMode {
+public class AutoBlueShootAndParkingAndBall extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -43,7 +44,7 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         robot.shootingMotor.setPower(1);
         sleep(1500);
         //Driving towards the Center Of Vortex
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 18,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 18, 10, this, robot, telemetry);
         //Shooting 2 Balls
         robot.reloadingMotor.setPower(-0.95);
         sleep(600);
@@ -53,12 +54,14 @@ import org.lasarobotics.vision.opmode.LinearVisionOpMode;
         sleep(1300);
         robot.shootingMotor.setPower(0);
         robot.reloadingMotor.setPower(0);
+        //Driving towards the cap ball
         RobotUtilities.gyroRotate(8, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 73,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 73, 10, this, robot, telemetry);
         sleep(1000);
+        //Driving towards the Corner Of Vortex
         RobotUtilities.gyroRotate(300, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -95,10, this, robot, telemetry);
-
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -95, 10, this, robot, telemetry);
+//the robot is parked on the Corner Of Vortex
 
         while (opModeIsActive()) {
             telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());

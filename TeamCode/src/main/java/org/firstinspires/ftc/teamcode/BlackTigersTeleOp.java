@@ -73,8 +73,8 @@ public class BlackTigersTeleOp extends OpMode {
         double leftPower = -gamepad1.left_stick_y;
         double rightPower = -gamepad1.right_stick_y;
         DbgLog.msg("Left Stick: " + leftPower + "; Right Stick: " + rightPower);
-// we give our driver the option to move fast slow in the normal speed and control our robot moving
-// buy clicking on a button
+        // we give our driver the option to move fast slow in the normal speed and control our robot moving
+        // buy clicking on a button
         if ((!gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.dpad_up && !gamepad1.dpad_down) || (gamepad1.left_bumper && gamepad1.right_bumper && gamepad1.dpad_up && gamepad1.dpad_down)) {
             robot.leftMotor.setPower(RobotUtilities.normalizePower(leftPower));
             robot.rightMotor.setPower(RobotUtilities.normalizePower(rightPower));
