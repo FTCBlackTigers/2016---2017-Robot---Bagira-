@@ -19,13 +19,16 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        // initialize hardware
         robot.init(hardwareMap);
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.shootingMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        RobotUtilities.calibrategyro(telemetry , robot ,this);
+        // calibrate the gyro
+        RobotUtilities.calibrategyro(telemetry, robot, this);
+        // set up camera for beacon detection
         enableExtension(VisionOpMode.Extensions.BEACON);
         enableExtension(VisionOpMode.Extensions.ROTATION);
         enableExtension(VisionOpMode.Extensions.CAMERA_CONTROL);
@@ -44,50 +47,61 @@ import org.lasarobotics.vision.opmode.VisionOpMode;
 
         waitForStart();
 
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -38,10, this, robot, telemetry);
+        // Drive and Turn toward the first beacon
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -38, 10, this, robot, telemetry);
         RobotUtilities.gyroRotate(37, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -95,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -95, 10, this, robot, telemetry);
         sleep(200);
+        // align the camera with beacon
         RobotUtilities.gyroRotate(-35, robot, telemetry, this);
         sleep(100);
-        while(!beacon.getAnalysis().isRightKnown() || !beacon.getAnalysis().isLeftKnown()) {
+        // Read what color is the beacon
+        while (!beacon.getAnalysis().isRightKnown() || !beacon.getAnalysis().isLeftKnown()) {
 
         }
         boolean isBlueRight = beacon.getAnalysis().isRightBlue();
         telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
         telemetry.addData("Beacon Confidence", beacon.getAnalysis().getConfidenceString());
         telemetry.update();
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed/3, -4,10, this, robot, telemetry);
+        // move the robot to a position to press the beacon
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 3, -4, 10, this, robot, telemetry);
         sleep(200);
         RobotUtilities.gyroRotate(90, robot, telemetry, this);
+        // warm up the shooting mechanism for shooting
         robot.shootingMotor.setPower(0.75);
         sleep(200);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -63,10, this, robot, telemetry);
-        RobotUtilities.moveForward(0.35, 35 ,10, this, robot, telemetry);
+        // press the beacon, and move forward to shooting position
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -63, 10, this, robot, telemetry);
+        RobotUtilities.moveForward(0.35, 35, 10, this, robot, telemetry);
         sleep(1500);
+        // activate the shooting mechanism
         robot.reloadingMotor.setPower(-0.75);
         sleep(2500);
         robot.shootingMotor.setPower(0);
         robot.reloadingMotor.setPower(0);
-        if(!isBlueRight) {
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -53 ,10, this, robot, telemetry);
+        // if the beacon is not in the right color, press it again
+        if (!isBlueRight) {
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -53, 10, this, robot, telemetry);
             sleep(700);
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed, 35 ,10, this, robot, telemetry);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed, 35, 10, this, robot, telemetry);
         }
+        //Driving towards the 2nd Beacon
         sleep(500);
         RobotUtilities.gyroRotate(-85, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -113,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -113, 10, this, robot, telemetry);
         sleep(500);
+        //Read what color is the Beacon
         isBlueRight = beacon.getAnalysis().isRightBlue();
         telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
         telemetry.addData("Beacon Confidence", beacon.getAnalysis().getConfidenceString());
-        if(!isBlueRight) {
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed,-15,5,this,robot,telemetry);
+        // if the beacon is not in the right color, press it again
+        if (!isBlueRight) {
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed, -15, 5, this, robot, telemetry);
         }
-       RobotUtilities.gyroRotate(85, robot, telemetry, this);
+        RobotUtilities.gyroRotate(85, robot, telemetry, this);
         sleep(200);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed/2, -66 ,10, this, robot, telemetry);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed/3, 5 ,10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -66, 10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 3, 5, 10, this, robot, telemetry);
 
 
         while (opModeIsActive()) {
