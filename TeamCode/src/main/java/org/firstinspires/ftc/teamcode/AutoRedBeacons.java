@@ -51,7 +51,8 @@ public class AutoRedBeacons extends LinearVisionOpMode {
         RobotUtilities.gyroRotate(-37, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed * 0.5, 90, 10, this, robot, telemetry);
         sleep(200);
-        // align the camera with beacon
+        // align the camera with bea
+        // con
         RobotUtilities.gyroRotate(37, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 10, 10, this, robot, telemetry);
         sleep(500);
@@ -70,7 +71,7 @@ public class AutoRedBeacons extends LinearVisionOpMode {
         sleep(200);
         // warm up the shooting mechanism for shooting
         RobotUtilities.moveForward(RobotUtilities.normalSpeed / 3, -70, 10, this, robot, telemetry);
-        RobotUtilities.moveForward(0.35, 26, 10, this, robot, telemetry);
+        RobotUtilities.moveForward(0.35, 20, 10, this, robot, telemetry);
         sleep(1500);
         // activate the shooting mechanism
         robot.reloadingMotor.setPower(-0.75);
@@ -79,12 +80,13 @@ public class AutoRedBeacons extends LinearVisionOpMode {
         robot.reloadingMotor.setPower(0);
         // if the beacon is not in the right color, press it again
         if (!isRedRight) {
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -53, 10, this, robot, telemetry);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -40, 10, this, robot, telemetry);
             sleep(700);
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 35, 10, this, robot, telemetry);
+            RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 20, 10, this, robot, telemetry);
         }
         sleep(0500);
         //Driving towards the 2nd Beacon
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 15, 10, this, robot, telemetry);
         RobotUtilities.gyroRotate(-90, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed / 1.5, 117, 10, this, robot, telemetry);
         sleep(500);
