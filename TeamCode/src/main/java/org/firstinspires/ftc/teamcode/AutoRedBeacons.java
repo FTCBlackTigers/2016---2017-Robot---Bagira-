@@ -87,8 +87,8 @@ public class AutoRedBeacons extends LinearVisionOpMode {
         sleep(0500);
         //Driving towards the 2nd Beacon
         RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 15, 10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(-90, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 1.5, 117, 10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-82, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 1.5, 120, 10, this, robot, telemetry);
         sleep(500);
         //Read what color is the Beacon
         isRedRight = beacon.getAnalysis().isRightRed();
