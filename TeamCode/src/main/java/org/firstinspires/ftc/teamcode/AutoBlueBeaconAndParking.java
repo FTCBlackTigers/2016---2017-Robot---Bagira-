@@ -4,16 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.lasarobotics.vision.ftc.resq.Beacon;
 import org.lasarobotics.vision.opmode.LinearVisionOpMode;
-import org.lasarobotics.vision.opmode.VisionOpMode;
 /*
  * Created by user on 01/02/2017.
  */
 
 
-@Autonomous(name = "Blue-Beacons", group = "BlackTigers Auto")
-public class AutoBlueBeacons extends LinearVisionOpMode {
+@Autonomous(name = "Blue-Beacons&Parking", group = "BlackTigers Auto")
+public class AutoBlueBeaconAndParking extends LinearVisionOpMode {
 
     BlackTigersHardware robot = new BlackTigersHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -30,9 +28,9 @@ public class AutoBlueBeacons extends LinearVisionOpMode {
         // calibrate the gyro
         RobotUtilities.calibrategyro(telemetry, robot, this);
         // set up camera for beacon detection
-        enableExtension(VisionOpMode.Extensions.BEACON);
-        enableExtension(VisionOpMode.Extensions.ROTATION);
-        enableExtension(VisionOpMode.Extensions.CAMERA_CONTROL);
+        enableExtension(Extensions.BEACON);
+        enableExtension(Extensions.ROTATION);
+        enableExtension(Extensions.CAMERA_CONTROL);
         RobotUtilities.cameraSetup(this);
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -65,6 +63,7 @@ public class AutoBlueBeacons extends LinearVisionOpMode {
         telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
         telemetry.addData("Beacon Confidence", beacon.getAnalysis().getConfidenceString());
         telemetry.update();
+        sleep(700);
         // move the robot to a position to press the beacon
         sleep(200);
         RobotUtilities.gyroRotate(86  , robot, telemetry, this);
@@ -88,22 +87,10 @@ public class AutoBlueBeacons extends LinearVisionOpMode {
         }
         //Driving towards the 2nd Beacon
         sleep(500);
-        RobotUtilities.gyroRotate(-85, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -117, 10, this, robot, telemetry);
-        sleep(500);
-        //Read what color is the Beacon
-        isBlueRight = beacon.getAnalysis().isRightBlue();
-        telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
-        telemetry.addData("Beacon Confidence", beacon.getAnalysis().getConfidenceString());
-        // if the beacon is not in the right color, press it again
-        if (!isBlueRight) {
-            RobotUtilities.moveForward(RobotUtilities.normalSpeed, -15, 5, this, robot, telemetry);
-        }
-        RobotUtilities.gyroRotate(85, robot, telemetry, this);
-        sleep(200);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -66, 10, this, robot, telemetry);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 3, 5, 10, this, robot, telemetry);
-
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 75, 10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(50, robot, telemetry, this);
+        sleep(700);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -140, 10, this, robot, telemetry);
 
 
 
