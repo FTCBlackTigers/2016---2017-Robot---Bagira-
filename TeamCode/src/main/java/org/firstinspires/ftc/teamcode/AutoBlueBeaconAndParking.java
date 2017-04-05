@@ -48,8 +48,8 @@ public class AutoBlueBeaconAndParking extends LinearVisionOpMode {
 
         // Drive and Turn toward the first beacon
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -38, 10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(37, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -95, 10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(41, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -103, 10, this, robot, telemetry);
         sleep(200);
         // align the camera with beacon
         RobotUtilities.gyroRotate(-31, robot, telemetry, this);
@@ -63,7 +63,6 @@ public class AutoBlueBeaconAndParking extends LinearVisionOpMode {
         telemetry.addData("Beacon Color", beacon.getAnalysis().getColorString());
         telemetry.addData("Beacon Confidence", beacon.getAnalysis().getConfidenceString());
         telemetry.update();
-        sleep(700);
         // move the robot to a position to press the beacon
         sleep(200);
         RobotUtilities.gyroRotate(86  , robot, telemetry, this);
@@ -85,7 +84,6 @@ public class AutoBlueBeaconAndParking extends LinearVisionOpMode {
             sleep(700);
             RobotUtilities.moveForward(RobotUtilities.normalSpeed, 35, 10, this, robot, telemetry);
         }
-        //Driving towards the 2nd Beacon
         sleep(500);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 75, 10, this, robot, telemetry);
         RobotUtilities.gyroRotate(50, robot, telemetry, this);

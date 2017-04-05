@@ -44,7 +44,7 @@ public class AutoBlueShootAndParkingAndBallFar extends LinearVisionOpMode {
         robot.shootingMotor.setPower(0.75);
         //Driving towards the Center Of Vortex
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 20, 10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(45, robot, telemetry, this);
+        RobotUtilities.gyroRotate(40, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 35, 10, this, robot, telemetry);
         //Shooting 2 Balls
         robot.reloadingMotor.setPower(-0.75);
@@ -56,10 +56,10 @@ public class AutoBlueShootAndParkingAndBallFar extends LinearVisionOpMode {
         robot.shootingMotor.setPower(0);
         robot.reloadingMotor.setPower(0);
         //Driving towards the cap ball
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 58, 10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, 61, 10, this, robot, telemetry);
         sleep(9000);
         //Driving towards the Corner Of Vortex
-        RobotUtilities.gyroRotate(-95, robot, telemetry, this);
+        RobotUtilities.gyroRotate(-90, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -150, 10, this, robot, telemetry);
         //the robot is parked on the Corner Of Vortex
 

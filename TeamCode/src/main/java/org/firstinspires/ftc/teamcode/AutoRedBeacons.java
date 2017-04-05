@@ -48,8 +48,8 @@ public class AutoRedBeacons extends LinearVisionOpMode {
 
         // Drive and Turn toward the first beacon
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 52, 10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(-37, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed * 0.5, 90, 10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-38, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed * 0.5, 95, 10, this, robot, telemetry);
         sleep(200);
         // align the camera with bea
         // con
@@ -87,8 +87,8 @@ public class AutoRedBeacons extends LinearVisionOpMode {
         sleep(0500);
         //Driving towards the 2nd Beacon
         RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, 15, 10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(-84, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 1.5, 120, 10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-81, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed / 1.5, 110, 10, this, robot, telemetry);
         sleep(500);
         //Read what color is the Beacon
         isRedRight = beacon.getAnalysis().isRightRed();

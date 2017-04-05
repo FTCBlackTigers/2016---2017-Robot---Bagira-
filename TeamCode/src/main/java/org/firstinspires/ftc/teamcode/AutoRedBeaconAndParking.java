@@ -48,8 +48,8 @@ public class AutoRedBeaconAndParking extends LinearVisionOpMode {
 
         // Drive and Turn toward the first beacon
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 52, 10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(-37, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed * 0.5, 90, 10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(-38, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed * 0.5, 95, 10, this, robot, telemetry);
         sleep(200);
         // align the camera with bea
         // con

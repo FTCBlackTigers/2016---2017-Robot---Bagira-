@@ -50,8 +50,8 @@ public class AutoBlueBeacons extends LinearVisionOpMode {
 
         // Drive and Turn toward the first beacon
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -38, 10, this, robot, telemetry);
-        RobotUtilities.gyroRotate(37, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -95, 10, this, robot, telemetry);
+        RobotUtilities.gyroRotate(41, robot, telemetry, this);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -103, 10, this, robot, telemetry);
         sleep(200);
         // align the camera with beacon
         RobotUtilities.gyroRotate(-31, robot, telemetry, this);
@@ -89,7 +89,7 @@ public class AutoBlueBeacons extends LinearVisionOpMode {
         //Driving towards the 2nd Beacon
         sleep(500);
         RobotUtilities.gyroRotate(-85, robot, telemetry, this);
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -117, 10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -114, 10, this, robot, telemetry);
         sleep(500);
         //Read what color is the Beacon
         isBlueRight = beacon.getAnalysis().isRightBlue();

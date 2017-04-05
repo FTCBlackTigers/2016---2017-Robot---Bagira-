@@ -59,7 +59,7 @@ public class AutoBlueShootAndParkingAndBall extends LinearVisionOpMode {
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, 73, 10, this, robot, telemetry);
         sleep(1000);
         //Driving towards the Corner Of Vortex
-        RobotUtilities.gyroRotate(300, robot, telemetry, this);
+        RobotUtilities.gyroRotate(270, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed / 2, -95, 10, this, robot, telemetry);
 //the robot is parked on the Corner Of Vortex
 
