@@ -49,7 +49,7 @@ public class AutoBlueBeacons extends LinearVisionOpMode {
         waitForStart();
 
         // Drive and Turn toward the first beacon
-        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -38, 10, this, robot, telemetry);
+        RobotUtilities.moveForward(RobotUtilities.normalSpeed, -55, 10, this, robot, telemetry);
         RobotUtilities.gyroRotate(41, robot, telemetry, this);
         RobotUtilities.moveForward(RobotUtilities.normalSpeed, -103, 10, this, robot, telemetry);
         sleep(200);
